@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tavern Name Generator – D&amp;D &amp; RPG Fantasy Tavern Names</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate 20 random fantasy tavern names for D&amp;D and tabletop RPGs. Perfect for inns, pubs, alehouses, and roadside stops in any campaign.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav (same as index, just with absolute paths) -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Page header row with button -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <!-- Beer icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="cc-generator-icon-svg"
+                 aria-hidden="true">
+              <path d="M17 11h1a3 3 0 0 1 0 6h-1"/>
+              <path d="M9 12v6"/>
+              <path d="M13 12v6"/>
+              <path d="M14 7.5c-1 0-1.44.5-3 .5s-2-.5-3-.5-1.72.5-2.5.5a2.5 2.5 0 0 1 0-5c.78 0 1.57.5 2.5.5S9.44 2 11 2s2 1.5 3 1.5 1.72-.5 2.5-.5a2.5 2.5 0 0 1 0 5c-.78 0-1.5-.5-2.5-.5Z"/>
+              <path d="M5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Tavern Generator</h2>
+            <p class="cc-page-subtitle">
+              Generate random tavern names for your fantasy world. Perfect for GMs, writers, and
+              worldbuilders who need quick taverns on demand.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-taverns" class="cc-button-primary">
+            Generate Taverns
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO / crawlable copy -->
+      <p class="cc-page-seo">
+        This tavern name generator creates fantasy inn names, pub names, alehouse names, and roadside taverns
+        for D&amp;D and tabletop RPG campaigns. Use it to name meeting spots, quest hubs, safehouses, or
+        suspicious dives wherever the party wanders.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/random/quest-hook.html">Quest Hooks</a>,
+        <a href="/random/place-names.html">Place Names</a>,
+        <a href="/random/npc.html">NPC Generator</a>
+      </p>
+
+      <ul class="cc-seo-examples">
+        <li><strong>The Silver Faerie</strong> — clean tables, sharp-eyed staff, and too many mirrors.</li>
+        <li><strong>Anchor and Thorn</strong> — sailors, smugglers, and a back room with a locked door.</li>
+        <li><strong>The Laughing Raven</strong> — cheap ale, loud songs, and a bard who knows everyone.</li>
+        <li><strong>The Alchemist’s Den</strong> — “healing tonics,” strange smoke, and whispered deals.</li>
+        <li><strong>Rusty Robber Hall</strong> — a rough crowd and a notice board full of bad ideas.</li>
+        <li><strong>The Ranger’s Corner</strong> — maps, pelts, and a patron who never removes their hood.</li>
+      </ul>
+
+      <!-- Results panel -->
+      <div id="cc-tavern-panel" class="cc-generator-panel">
+        <div id="cc-tavern-empty" class="cc-empty-state">
+          Click <strong>Generate Taverns</strong> to create 20 random tavern names.
+        </div>
+
+        <div id="cc-tavern-results" class="cc-results-grid" hidden>
+          <!-- Cards injected here by JS -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- AdSense slot (same idea as index) -->
+  <section class="cc-adsense">
+    <div class="cc-adsense-slot">
+      <span class="cc-adsense-placeholder">AdSense Unit</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page JS: calls Goblin backend, no randomness here -->
+  <script>
+  (function () {
+    const button = document.getElementById('cc-generate-taverns');
+    const resultsGrid = document.getElementById('cc-tavern-results');
+    const emptyState = document.getElementById('cc-tavern-empty');
+
+    function renderTaverns(names) {
+      resultsGrid.innerHTML = '';
+
+      names.forEach((name) => {
+        const card = document.createElement('div');
+        card.className = 'cc-result-card';
+        card.textContent = name;
+        resultsGrid.appendChild(card);
+      });
+    }
+
+    async function fetchTaverns() {
+      const response = await fetch('/api/tavern', {
+        headers: { 'Accept': 'text/plain' }
+      });
+
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+      }
+
+      const text = await response.text();
+
+      return text
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    let isGenerating = false;
+
+    button.addEventListener('click', async function () {
+      if (isGenerating) return;
+      isGenerating = true;
+
+      const hadResults = !resultsGrid.hasAttribute('hidden');
+      button.textContent = 'Generating…';
+      button.classList.add('cc-button-loading');
+
+      try {
+        const names = await fetchTaverns();
+
+        renderTaverns(names);
+        resultsGrid.removeAttribute('hidden');
+        emptyState.style.display = 'none';
+
+        button.textContent = hadResults ? 'Generate More' : 'Generate More';
+      } catch (err) {
+        console.error(err);
+        button.textContent = 'Error – Try Again';
+      } finally {
+        button.classList.remove('cc-button-loading');
+        isGenerating = false;
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>

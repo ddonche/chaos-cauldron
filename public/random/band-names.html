@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Band Name Generator – Random Band Names for Music & Stories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate 20 random band names instantly. Perfect for rock, metal, punk, indie, and fantasy bards — great for writers, RPGs, and musicians.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Page header -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <!-- Music icon -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 class="cc-generator-icon-svg"
+                 aria-hidden="true">
+              <path d="M9 18V5l12-2v13"/>
+              <path d="m9 9 12-2"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Band Name Generator</h2>
+            <p class="cc-page-subtitle">
+              Generate band names for anything: metal, punk, indie, synthwave, bardcore, or your next NPC troupe.
+              Click once and grab 20 names.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-bands" class="cc-button-primary">
+            Generate Band Names
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO copy -->
+      <p class="cc-page-seo">
+        This band name generator creates quick, punchy band names for musicians, writers, and tabletop RPGs.
+        Use it for album projects, fictional bands, tavern performers, rebel radio hosts, or battle-of-the-bands one-shots.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/random/character.html">Character Generator</a>,
+        <a href="/random/tavern.html">Tavern Generator</a>,
+        <a href="/random/place-names.html">Place Names</a>
+      </p>
+
+      <ul class="cc-seo-examples">
+        <li><strong>Grave Orchard</strong> — sweet melodies with teeth.</li>
+        <li><strong>Velvet Catastrophe</strong> — slow burn, loud endings.</li>
+        <li><strong>Iron Hymn</strong> — riffs like sermons.</li>
+        <li><strong>Neon Wolves</strong> — synths and headlights.</li>
+        <li><strong>Dust Crown</strong> — outlaw folk with a halo.</li>
+        <li><strong>Bone Theater</strong> — dramatic, strange, unforgettable.</li>
+      </ul>
+
+      <!-- Results panel -->
+      <div id="cc-band-panel" class="cc-generator-panel">
+        <div id="cc-band-empty" class="cc-empty-state">
+          Click <strong>Generate Band Names</strong> to create 20 random band names.
+        </div>
+
+        <div id="cc-band-results" class="cc-results-grid" hidden>
+          <!-- Cards injected here -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- AdSense -->
+  <section class="cc-adsense">
+    <div class="cc-adsense-slot">
+      <span class="cc-adsense-placeholder">AdSense Unit</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page JS -->
+  <script>
+  (function () {
+    const button = document.getElementById('cc-generate-bands');
+    const resultsGrid = document.getElementById('cc-band-results');
+    const emptyState = document.getElementById('cc-band-empty');
+
+    function renderBands(items) {
+      resultsGrid.innerHTML = '';
+      items.forEach((text) => {
+        const card = document.createElement('div');
+        card.className = 'cc-result-card';
+        card.textContent = text;
+        resultsGrid.appendChild(card);
+      });
+    }
+
+    async function fetchBands() {
+      const response = await fetch('/api/band-names', {
+        headers: { 'Accept': 'text/plain' }
+      });
+
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+
+      const text = await response.text();
+      return text.split('\n').map(s => s.trim()).filter(Boolean);
+    }
+
+    let isGenerating = false;
+
+    button.addEventListener('click', async function () {
+      if (isGenerating) return;
+      isGenerating = true;
+
+      button.textContent = 'Generating…';
+      button.classList.add('cc-button-loading');
+
+      try {
+        const items = await fetchBands();
+        renderBands(items);
+        resultsGrid.removeAttribute('hidden');
+        emptyState.style.display = 'none';
+        button.textContent = 'Generate More';
+      } catch (err) {
+        console.error(err);
+        button.textContent = 'Error – Try Again';
+      } finally {
+        button.classList.remove('cc-button-loading');
+        isGenerating = false;
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>

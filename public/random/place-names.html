@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Place Name Generator – D&amp;D &amp; RPG Town, City, Region Names</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate 20 random place names for fantasy towns, cities, regions, mountains, and realms. Great for D&amp;D, Pathfinder, and tabletop RPG worldbuilding.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav (same as index, absolute paths) -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Page header row with button -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <!-- Place Names icon: EXACT SVG FROM INDEX -->
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 13v8"/>
+              <path d="M12 3v3"/>
+              <path d="M4 6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h13a2 2 0 0 0 1.152-.365l3.424-2.317a1 1 0 0 0 0-1.635l-3.424-2.318A2 2 0 0 0 17 6z"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Place Name Generator</h2>
+            <p class="cc-page-subtitle">
+              Generate names for towns, cities, regions, and realms. Drop them straight into your world map.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-places" class="cc-button-primary">
+            Generate Places
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO / crawlable copy -->
+      <p class="cc-page-seo">
+        This place name generator creates fantasy town names, city names, region names, mountain ranges, and realms
+        for D&amp;D and tabletop RPG campaigns. Use it to populate maps, rumor tables, travel scenes, and worldbuilding notes.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/random/quest-hook.html">Quest Hooks</a>,
+        <a href="/random/tavern.html">Tavern Generator</a>,
+        <a href="/random/npc.html">NPC Generator</a>
+      </p>
+
+      <ul class="cc-seo-examples">
+        <li><strong>City:</strong> Everwind City • King’s Landing • Raven Rock</li>
+        <li><strong>Town:</strong> Bartertown • Overvale • Mistford</li>
+        <li><strong>Region:</strong> The Wilds • The Marches • The Lowlands</li>
+        <li><strong>Landmark:</strong> Red Pass • Rosebeard Peak • Frostwatch Keep</li>
+        <li><strong>Realm:</strong> Averia • Rohan • Mordor</li>
+      </ul>
+
+      <!-- Results panel -->
+      <div id="cc-place-panel" class="cc-generator-panel">
+        <div id="cc-place-empty" class="cc-empty-state">
+          Click <strong>Generate Places</strong> to create 20 random place names.
+        </div>
+
+        <div id="cc-place-results" class="cc-results-grid" hidden>
+          <!-- Cards injected here by JS -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- AdSense slot -->
+  <section class="cc-adsense">
+    <div class="cc-adsense-slot">
+      <span class="cc-adsense-placeholder">AdSense Unit</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page JS: calls Goblin backend, no randomness here -->
+  <script>
+    (function () {
+      const button = document.getElementById('cc-generate-places');
+      const resultsGrid = document.getElementById('cc-place-results');
+      const emptyState = document.getElementById('cc-place-empty');
+
+      function renderPlaces(names) {
+        resultsGrid.innerHTML = '';
+
+        names.forEach((name) => {
+          const card = document.createElement('div');
+          card.className = 'cc-result-card';
+          card.textContent = name;
+          resultsGrid.appendChild(card);
+        });
+      }
+
+      async function fetchPlaces() {
+        const response = await fetch('/api/place-names');
+
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+
+        const text = await response.text();
+
+        return text
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0);
+      }
+
+      let isGenerating = false;
+
+      button.addEventListener('click', async function () {
+        if (isGenerating) return;
+        isGenerating = true;
+
+        const hadResults = !resultsGrid.hasAttribute('hidden');
+        button.textContent = 'Generating…';
+        button.classList.add('cc-button-loading');
+
+        try {
+          const names = await fetchPlaces();
+
+          renderPlaces(names);
+          resultsGrid.removeAttribute('hidden');
+          emptyState.style.display = 'none';
+
+          button.textContent = hadResults ? 'Generate More' : 'Generate More';
+        } catch (err) {
+          console.error(err);
+          button.textContent = 'Error – Try Again';
+        } finally {
+          button.classList.remove('cc-button-loading');
+          isGenerating = false;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

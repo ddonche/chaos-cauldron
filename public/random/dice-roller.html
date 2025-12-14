@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dice Roller – Chaos Cauldron</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Roll any dice expression — d4 to d100, with modifiers.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Header Row -->
+      <div class="cc-generator-header">
+
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <!-- SAME SVG USED ON INDEX -->
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="12" height="12" x="2" y="10" rx="2" ry="2"/>
+              <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/>
+              <path d="M6 18h.01"/>
+              <path d="M10 14h.01"/>
+              <path d="M15 6h.01"/>
+              <path d="M18 9h.01"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Dice Roller</h2>
+            <p class="cc-page-subtitle">
+              Roll any dice expression: <strong>1d20</strong>, <strong>3d6+2</strong>, <strong>4d4</strong>, and more.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <input id="cc-dice-input"
+                 type="text"
+                 placeholder="e.g. 3d6+2"
+                 class="cc-input">
+          <button id="cc-roll-button" class="cc-button-primary">
+            Roll Dice
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Results panel -->
+      <div id="cc-dice-panel" class="cc-generator-panel">
+        <div id="cc-dice-empty" class="cc-empty-state">
+          Enter a dice expression above and click <strong>Roll Dice</strong>.
+        </div>
+
+        <div id="cc-dice-results" class="cc-results-grid" hidden>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    (function () {
+      const input = document.getElementById('cc-dice-input');
+      const button = document.getElementById('cc-roll-button');
+      const emptyState = document.getElementById('cc-dice-empty');
+      const results = document.getElementById('cc-dice-results');
+
+      async function rollDice(expr) {
+        const encoded = encodeURIComponent('"' + expr + '"');
+
+        const response = await fetch('/api/roll?expr=' + encoded, {
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!response.ok) throw new Error("HTTP " + response.status);
+
+        return await response.json();
+      }
+
+      function render(result) {
+        results.innerHTML = '';
+
+        // card 1 — total result
+        const total = document.createElement('div');
+        total.className = 'cc-result-card';
+        total.textContent = 'Total: ' + result.total;
+        results.appendChild(total);
+
+        // card 2 — details
+        const detail = document.createElement('div');
+        detail.className = 'cc-result-card';
+        detail.innerHTML =
+          '<strong>Rolls:</strong> ' + result.values.join(', ') + '<br>' +
+          '<strong>Modifier:</strong> ' + result.modifier + '<br>' +
+          '<strong>Sum:</strong> ' + result.sum;
+        results.appendChild(detail);
+      }
+
+      button.addEventListener('click', async () => {
+        const expr = input.value.trim();
+        if (!expr) return;
+
+        button.textContent = 'Rolling…';
+        button.classList.add('cc-button-loading');
+
+        try {
+          const result = await rollDice(expr);
+
+          render(result);
+          results.removeAttribute('hidden');
+          emptyState.style.display = 'none';
+
+          button.textContent = 'Roll Again';
+        } catch (err) {
+          console.error(err);
+          button.textContent = 'Error – Try Again';
+        } finally {
+          button.classList.remove('cc-button-loading');
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

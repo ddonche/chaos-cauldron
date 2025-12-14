@@ -1,0 +1,15 @@
+/// API: roll {expr}
+
+act api_roll
+    expr_str | env("QUERY")["expr"]
+
+    /// remove surrounding quotes
+    expr_clean | expr_str.keep_between("\"", "\"")
+
+    /// execute dice expression (no quotes)
+    result | roll_detail expr_clean
+
+    say result
+end
+
+api_roll()

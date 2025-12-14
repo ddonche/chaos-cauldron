@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quest Hook Generator – D&amp;D &amp; RPG Adventure Seeds</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate 20 quick quest hooks and adventure seeds for D&D and tabletop RPGs. Perfect for last-minute sessions, side quests, and campaign prep.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Page header row with button -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <!-- Quest Hook icon from index.html -->
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10a5 5 0 1 1-10 0c0-.3 0-.6.1-.9a2 2 0 1 0 3.3-2C8 4.5 11 2 12 2Z"/>
+              <path d="m5 22 14-4"/>
+              <path d="m5 18 14 4"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Quest Hook Generator</h2>
+            <p class="cc-page-subtitle">
+              Generate twenty quick adventure prompts at a time — perfect for last-minute sessions.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-hooks" class="cc-button-primary">
+            Generate Hooks
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO / crawlable copy -->
+      <p class="cc-page-seo">
+        This quest hook generator creates fast adventure seeds for D&amp;D and tabletop RPGs — great for side quests,
+        one-shots, and filling in the gaps when players go off the rails.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/random/place-names.html">Place Names</a>,
+        <a href="/random/tavern.html">Tavern Generator</a>,
+        <a href="/random/npc.html">NPC Generator</a>
+      </p>
+
+      <ul class="cc-seo-examples">
+        <li>A missing courier never reached the next town — and the road is strangely quiet.</li>
+        <li>A noble offers a reward for a relic that “must not be found by the wrong hands.”</li>
+        <li>A monster is blamed for attacks, but the evidence doesn’t match any known beast.</li>
+        <li>A rival adventuring party claims they already “saved the day” — and wants credit.</li>
+        <li>A local festival is interrupted by an omen that everyone interprets differently.</li>
+        <li>A sealed door has appeared where none existed yesterday.</li>
+      </ul>
+
+      <!-- Results panel -->
+      <div id="cc-hooks-panel" class="cc-generator-panel">
+        <div id="cc-hooks-empty" class="cc-empty-state">
+          Click <strong>Generate Hooks</strong> to create 20 random quest ideas.
+        </div>
+
+        <div id="cc-hooks-results" class="cc-results-grid" hidden>
+          <!-- Cards injected here by JS -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- AdSense slot -->
+  <section class="cc-adsense">
+    <div class="cc-adsense-slot">
+      <span class="cc-adsense-placeholder">AdSense Unit</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page JS: identical pattern to tavern / places -->
+  <script>
+    (function () {
+      const button = document.getElementById('cc-generate-hooks');
+      const resultsGrid = document.getElementById('cc-hooks-results');
+      const emptyState = document.getElementById('cc-hooks-empty');
+
+      function renderHooks(hooks) {
+        resultsGrid.innerHTML = '';
+
+        hooks.forEach((hook) => {
+          const card = document.createElement('div');
+          card.className = 'cc-result-card';
+          card.textContent = hook;
+          resultsGrid.appendChild(card);
+        });
+      }
+
+      async function fetchHooks() {
+        const response = await fetch('/api/quest-hook', {
+          headers: { 'Accept': 'text/plain' }
+        });
+
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+
+        const text = await response.text();
+        return text
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0);
+      }
+
+      let isGenerating = false;
+
+      button.addEventListener('click', async function () {
+        if (isGenerating) return;
+        isGenerating = true;
+
+        const hadResults = !resultsGrid.hasAttribute('hidden');
+        button.textContent = 'Generating…';
+        button.classList.add('cc-button-loading');
+
+        try {
+          const hooks = await fetchHooks();
+
+          renderHooks(hooks);
+          resultsGrid.removeAttribute('hidden');
+          emptyState.style.display = 'none';
+
+          button.textContent = hadResults ? 'Generate More' : 'Generate More';
+        } catch (err) {
+          console.error(err);
+          button.textContent = 'Error – Try Again';
+        } finally {
+          button.classList.remove('cc-button-loading');
+          isGenerating = false;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

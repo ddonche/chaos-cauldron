@@ -1,0 +1,181 @@
+act band_name_generator
+
+    adjectives | [
+      "After","Against","Altar of","Amber","Ancient","Arcade","Ashen","Ashes","Avenged","Backroad",
+      "Battlefield","Behind","Below","Between","Black","Bleeding",
+      "Blood","Blue","Bold","Broken",
+      "Brown","Burnt","Burning","Chasing",
+      "Chrome","City","Coffin","Cold","Count","Cracked","Crimson","Crystal","Da","Damned","Dark","Day","Daylight","Dead","Death",
+      "Demon","Demonic","Desert","Dessicated",
+      "Diesel","Dirt","Dirty","DJ","Doctor","Dr.","Double",
+      "Doubting","Duke","Dusty","Einstein","Electric","Emerald","Empty","Eternal","Evil","Faded",
+      "Failing","Falling","Feeding","Fighting","Filthy","Fog","For","Forget","Foul","Funeral","Golden","Green","Grim","Hand","Hard","Her","His","Hollow","Holy",
+      "House","Hungry","I Am","Ice","Indecent","Ink","Insane","Inside","Iron","Ivory","I Was","Jimmy","Johnny","Killing","Kneal","Last","Late",
+      "Leaving","Lil","Little","Lone","Lonesome","Lord","Lost","Low","Mammoth","Meat","Meeting","Metal",
+      "Midnight","Modern","Mr.","Mrs.","Mutilated","My","Naked","Necro","Neon","New","Next","Night","Nocturnal","Northern","Power","Prince",
+      "Profane","Purple","Old","One","Open","Our","Over","Quiet","Radio",
+      "Rancid","Red","Risen","Rising",
+      "River","Rogue","Rotting","Ruby","Ruined","Rusted","Sacred","Seeking","Severed","Sewer","Shadow","Shard","Silent","Silver","Slow","Small",
+      "Snot","Sorrow",
+      "Sour","Southern","Stained","Static",
+      "Stealing","Stealth","Steel","Stone","Storm","Summer","Sunset","Sweet","Tha","Thin","Thrice","Thunder","Tommy",
+      "Unholy","Velvet","Violet","War","Waste","We Are","We Were","Weekend","Whispers","White","Wicked","Wild","With","Within","Without",
+      "Wolf","Woo","Wretched","Yard","Yellow","Young","Your"
+    ]
+
+    nouns | [
+      "Aces","Agony","Amanda","Amy","Angels","Anger","Arrows","Ash","Assassin","Babes","Baby","Badlands","Beasts","Before","Bells",
+      "Betrayal","Birds","Blood","Bones","Boys","Brain",
+      "Bridges","Broke","Broom","Brothel","Brother","Bull",
+      "Cactus","Cadence","Canyons","Cards","Catacomb","City","Clock","Clover","Clown","Corpse","County","Country","Cousin",
+      "Cow","Crone","Critter","Crowns","Crypt","Dagger","Darkness","Dawn",
+      "Devil","Devils","Digger","Dimes","Disciple",
+      "Dreams","Elliot","Embers","Empire","Fables","Falls","Fever","Fires","Fools","Friday","Ghosts","Girls","Glass","God","Gravel",
+      "Guardian","Hand",
+      "Harmony","Hat","Haze","Hazel","Heads","Hearts","Highway","Hole","Honey","Horizon","Hounds","House","Hunter","Jack","Jukebox","Keeper","Kings","Knives",
+      "Lady","Lakes","Light","Lights","Lines","Lions","Loser","Luck","Method","Mind","Minstrel","Miracle",
+      "Mistress","Monday","Moon","Motel","Mother","Mouth","Night","Ninja","Noise","Oaks","Outlaws","Pauper",
+      "Pilots","Play","Poet","Puppet","Pyre","Queens","Rat","Revenge","Riders","Riley","Riot","Road","Rocket","Roses","Sacrifice","Saints","Saturday",
+      "Shadows","Silver","Sin","Sinners",
+      "Sister","Skies","Skull",
+      "Smoke","Snake","Songs","Sore","Sparks","Spirits","Stones","Strangers","Sunday","Sundown","Sunrise","Sunset","Tapes","Teeth",
+      "Tentacle","Thomas","Thrice","Thunder","Thursday","Tide","Time",
+      "Tone","Tower","Trouble","Tuesday","Warden","Weeds","Wednesday","Whore","Witch","Wolves","Wound","Wreckage","Yankee"
+    ]
+
+    people | [
+      "Boys","Duo","Girls","Kids","Band","Bastards","Bitches","Brothers","Choir","Clan","Crew","Fellows","Gang","Mafia","Posse",
+      "Squad","Trio","Quartet",
+      "Society","Union","Collective",
+      "Orchestra","Ensemble","Fam","Family","Sisters","Twins"
+    ]
+
+    /// Possessive owners (apostrophe-only)
+    owners_apostrophe | [
+      "Aces","Angels","Arrows","Bells","Birds","Bones","Boys","Bridges","Canyons","Cards","Crowns",
+      "Devils","Dimes","Dreams","Embers","Fires","Fools","Ghosts","Girls","Heads","Hearts","Hounds",
+      "Kings","Knives","Lights","Lines","Lions","Oaks","Outlaws","Pilots","Queens","Riders","Roses",
+      "Saints","Shadows","Skies","Songs","Sparks","Spirits","Stones","Strangers","Sinners","Teeth","Wolves"
+    ]
+
+    /// Possessive owners (normal 's) — keep it simple: just pick from nouns until it's NOT in owners_apostrophe
+    /// NOTE: this assumes you seed RNG in the API handler; otherwise first pick stays deterministic.
+
+    the_left | [ "Ashes","Blood","City","Coffin","Crystal","Funeral","House","Midnight","Neon","Radio","Shadow","Sewer","Stone","Storm","Sunset","War","Weekend","Whispers","Wretched" ]
+    in_left  | [ "Lost","Broken","Falling","Bleeding","Risen","Rising","Leaving","Ruined","Stained" ]
+
+    /// 1) Owner' Noun (1)
+    repeat 1
+        owner | pick 1 from owners_apostrophe
+        noun  | pick 1 from nouns
+        name  | owner + "'" ++ noun
+        say name
+    xx
+
+    /// 2) Owner's Noun (1) (avoid owners_apostrophe via reroll loop)
+    repeat 1
+        owner | pick 1 from nouns
+        repeat 8
+            if owners_apostrophe.has(owner)
+                owner | pick 1 from nouns
+            else
+                stop
+            end
+        xx
+        noun  | pick 1 from nouns
+        name  | owner + "'s" ++ noun
+        say name
+    xx
+
+    /// 3) The X Y (3)
+    repeat 3
+        left  | pick 1 from the_left
+        right | pick 1 from nouns
+        name  | "The" ++ left ++ right
+        say name
+    xx
+
+    /// 4) X and the Y (3)
+    repeat 3
+        left  | pick 1 from nouns
+        right | pick 1 from nouns
+        name  | left ++ "and the" ++ right
+        say name
+    xx
+
+    /// 5) X in Y (2)
+    repeat 2
+        left  | pick 1 from in_left
+        right | pick 1 from nouns
+        name  | left ++ "in" ++ right
+        say name
+    xx
+
+    /// 6) X in the Y (2)
+    repeat 2
+        left  | pick 1 from in_left
+        right | pick 1 from nouns
+        name  | left ++ "in the" ++ right
+        say name
+    xx
+
+    /// 7) X of Y (2)
+    repeat 2
+        left  | pick 1 from nouns
+        right | pick 1 from nouns
+        name  | left ++ "of" ++ right
+        say name
+    xx
+
+    /// 8) X of the Y (2)
+    repeat 2
+        left  | pick 1 from nouns
+        right | pick 1 from nouns
+        name  | left ++ "of the" ++ right
+        say name
+    xx
+
+    /// 9) Adj + Noun (2)
+    repeat 2
+        adj  | pick 1 from adjectives
+        noun | pick 1 from nouns
+        name | adj ++ noun
+        say name
+    xx
+
+    /// 10) Noun + People (2)
+    repeat 2
+        noun | pick 1 from nouns
+        ppl  | pick 1 from people
+        name | noun ++ ppl
+        say name
+    xx
+
+    /// 11) Adj + Noun + People (2)
+    repeat 2
+        adj  | pick 1 from adjectives
+        noun | pick 1 from nouns
+        ppl  | pick 1 from people
+        name | adj ++ noun ++ ppl
+        say name
+    xx
+
+    /// 12) Two-digit + Noun (2) => 21 Pilots
+    repeat 2
+        num  | pick 1 from 10...99
+        noun | pick 1 from nouns
+        name | str(num) ++ noun
+        say name
+    xx
+
+    /// 13) Noun + single digit (2) => "Skull 9" vibe (NO digit_words)
+    repeat 2
+        w   | pick 1 from nouns
+        num | pick 1 from 2...9
+        name | w ++ str(num)
+        say name
+    xx
+
+xx
+
+band_name_generator()

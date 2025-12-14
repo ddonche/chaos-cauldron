@@ -1,0 +1,126 @@
+act quest_hook_generator
+    patron_descriptors | [ "begging", "boisterous", "broke", "calm", "charming", "cold", "delirious", "desperate", "distraught", "downtrodden", "elegant","frail", 
+    "frantic","funny", "furious","grieving", 
+    "hateful", "homely", "hurried", "livid", "lost", "loud", "masked", "mean", 
+    "mud-stained","nervous", "passive", "pleading", "plotting", "poor", "rich", "rogue", "sad", 
+    "secretive","shaken","shaking", "sickly", "smug","soft-spoken","suspicious","tired","traveling", "trusting", "wandering", "wayward", 
+    "wealthy", "weeping", "whispering","wounded" ]
+
+    patron_roles | [ "adventurer","alchemist", "armorer", "bard", "baron", "blacksmith", "bowman", "captain", "cartographer", "cobbler", "count", "countess", "courier", "courtier", "cutthroat", 
+    "duchess", "duke", "farmer", "gaoler", 
+    "guard", "guildmaster","healer","hunter",
+    "innkeeper", "king", "knight", "librarian", "locksmith", "magistrate","merchant", "mistress", "noble", "orphan", "parent", "poet", "priest", 
+    "prince", "princess", "queen", "robber", 
+    "sage", "sailor","scholar",
+    "scribe", "sentry", "shaman", "shepherd", "singer", "soldier", "smuggler", "tailor", "thief", "tutor", "veteran",
+    "watch captain", "weaver", "widow", ]
+
+    jobs | [ "damage", "deliver","destroy","escort","expose","guard", "intercept", "investigate","sketch a map to","negotiate for","recover","rescue",
+    "retrieve","seal","smuggle","steal back","track down" ]
+
+    targets | [ "a blackmail ledger","a captive informant","a cursed idol","a dangerous prisoner","a forbidden tome", "a forgotten relic",
+    "a fugitive thief", "a kidnapped orphan", "a lost child","a magical amulet", "a missing caravan","a missing patrol","a rare ingredient","a runaway witness",
+    "a sealed package","a stolen heirloom","an ancient map", "a priceless artifact", "a secret message", "a signet ring", "a vanished messenger", "a veteran sailor", ]
+
+    where_words | [ "inside a creature's lair", "within a hidden cavern", "along the trade road","beneath the cathedral", "beyond the dark forest", "from the docks","from the forest edge","from the market",
+    "from the marsh","from the mines","from the mountain pass","from the old bridge","from the ruined keep","from the border outpost", "from the catacombs",
+    "from the graveyard","near the river","outside the city gates", "past the city wall", "under the watchtower" ]
+
+    rewards | [ "a blessing", "a bounty's wherabouts", "a family debt forgiven","a favor", "a fistful of gold", "a magic trinket","a map to hidden riches","a noble title",
+    "a royal pardon", "a pile of silver", "a rare weapon","a safehouse","a secret","a severed debt", "free passage","forbidden knowledge","good coin" ]
+
+    threats | [ "A coven of witches","A plague of rats","A rival militia","A rogue mage","A grip of bandits","A band of cultists","A team of mercenaries", "A gang of pirates",
+    "A knot of raiders", "A league of coundrels", "A clan of slavers","Something wearing human faces", "The city watch", "A horde of undead", "A group of vagabonds", "A legion of vampires", "A pack of wolves the size of horses" ]
+
+    places | [ "the border outpost", "the crypts", "the docks","the farmlands","the forest edge","the graveyard","the lower wards",
+    "the marsh","the mines","the mountain pass","the old bridge","the quarry","the ruined keep","the shrine","the tower", "the trade road","the village" ]
+
+    stakes | [ "animals are dying", "curses on all our heads", "chaos will win", "darkness upon us", "evil will prevail", "fear will spread", "a festival will turn into a massacre", "a great cataclysm will ensue",
+    "homes will burn", "no one will speak of what they saw","panic is spreading",
+    "people are disappearing at night","supplies are running out", "terror on our heads", "the guards are overwhelmed",
+    "the locals are too afraid to leave their homes","the next attack will be worse","the roads will close for winter", "unspeakable things will befall us", ]
+
+    omens | [ "blood spots", "blue fires", "bones", "cold spots","fires in the sky", "footprints", "gutteral sounds", "lights", "lightning", "melted candles",
+    "mirrors","musical noises", "mutterings", "omens", "screams", "shadows",
+    "silent bells","smoke signals", "snowfalls","prayers","symbols","ravens", "whispers", "withered flowers", ]
+
+    investigators | [ "a delirious drunkard", "a detective", "a paranoid noble","a rival adventuring party","a worried guild","an old hunter","the clergy", "the duke",
+    "the guards", "the king", "the local townsfolk","the magistrate","the mayor","a quiet librarian", "an expert tracker", "the warden", ]
+
+    victims | [ "young apprentice","blacksmith","caravan guard","child", "citizen", "dockhand","hunter","merchant","messenger","midwife",
+    "noble","pilgrim","priest", "sailor", "scout","scribe", "soldier", "villager", "watchman" ]
+
+    clues | [ "ashes", "a bloodless trail","a broken signet ring","a burned page", "a piece of silk", "a cryptic note","a key with no lock",
+    "a lock of golden hair", "a locked chest", "a map fragment", "a melted seal",
+    "a muddy bootprint","a ring that won’t come off", "a severed hand", "a silver needle","a strange coin","a torn cloak","a vial of black sand",
+    "a whispering charm" ]
+
+    macguffins | [ "a bell that rings underwater","a compass that points to people","a cursed blade","a forgotten tome", "a gold tooth", 
+    "a lantern that won’t go out","a lost crown","a sealed coffer","a shard of glass that hums","a vial of silver blood",
+    "a black mirror","an ancient relic","a saint’s bone", "a silver locket", "a flagon of dark liquid", ]
+
+    owners | [ "A collector","A foreign envoy","A hedge-wizard","A hermit","A merchant prince","A militia captain", "A mysterious woman", "An old monk", 
+    "A retired adventurer","A thieves’ guild","The alchemists’ circle","The church","The harbor master","A noble house" ]
+
+    complications | [ "a creature lurks in darkness", "it brings bad luck wherever it goes","it is already inside the city","it is wanted by dangerous people",
+    "it must be destroyed, not recovered","someone else is hunting it too","the last team never returned",
+    "the owner refuses to tell the whole truth","the trail is being covered up" ]
+
+    terrible | [ "ambushing", "assaulting", "attacking", "capturing", "descending upon", "dominating", "harassing", "haunting", "hitting", "hunting", "loitering around", 
+    "terrorizing", "threatening", "waylaying", ]
+
+    /// Style 1: Patron Job (A patron needs you to do X for Y)
+    repeat 5
+        desc   | pick 1 from patron_descriptors
+        role   | pick 1 from patron_roles
+        patron | "A" ++ desc ++ role
+
+        job    | pick 1 from jobs
+        target | pick 1 from targets
+        where  | pick 1 from where_words
+        reward | pick 1 from rewards
+
+        hook | patron ++ "needs you to" ++ job ++ target ++ where ++ "for" ++ reward + "."
+        say hook
+    xx
+
+    /// Style 2: Threat + Place + Stakes
+    repeat 5
+        threat | pick 1 from threats
+        terribles | pick 1 from terrible
+        place  | pick 1 from places
+        stake  | pick 1 from stakes
+        hook | threat ++ "has been" ++ terribles ++ place ++ "and" ++ stake + "."
+        say hook
+    xx
+
+    /// Style 3: Mystery/Omen (Strange omens; someone wants answers)
+    repeat 4
+        omen | pick 1 from omens
+        place | pick 1 from places
+        who | pick 1 from investigators
+        hook | "Strange" ++ omen ++ "have been reported near" ++ place ++ "and" ++ who ++ "wants answers."
+        say hook
+    xx
+
+    /// Style 4: Missing Person + Clue
+    repeat 3
+        victim | pick 1 from victims
+        place  | pick 1 from places
+        clue   | pick 1 from clues
+        hook | "A" ++ victim ++ "vanished near" ++ place ++ "and the only clue is" ++ clue + "."
+        say hook
+    xx
+
+    /// Style 5: Lost Item + Complication
+    repeat 3
+        owner | pick 1 from owners
+        item  | pick 1 from macguffins
+        place | pick 1 from places
+        comp  | pick 1 from complications
+        hook | owner ++ "lost" ++ item ++ "near" ++ place ++ "and" ++ comp + "."
+        say hook
+    xx
+xx
+
+quest_hook_generator()

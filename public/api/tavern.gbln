@@ -1,0 +1,56 @@
+act tavern_generator
+    adjectives | [ "Amber", "Ancient","Angry", "Arcane","Ashen","Bellowing","Bitter","Black", "Blessed","Bloodied","Blue", "Bold", "Brass", 
+    "Brave", "Broken","Bronze","Brown", "Brutal",
+    "Burning","Cackling","Captured", "Cloven", "Cold", "Copper", "Cowardly", "Crimson","Cursed","Dancing","Dark", "Drunken","Dusky","Emerald","Eternal","Evil", "Fallen","Forsaken",
+    "Forgotten","Forlorn", "Forsaken", "Free", "Frostbitten","Gilded","Gleaming","Glowing","Gloomy","Golden","Green", "Grim","Grinning","Hidden","Hollow",
+    "Howling","Ice", "Iron","Ivory","Jagged","Laughing","Lonely","Luminous","Mistbound","Moonlit","Obsidian","Prancing", "Quaking", 
+    "Radiant","Ragged","Red", "Roaring","Rotting","Rusted","Rusty","Sacred","Sapphire","Scarlet","Shadowed","Shaken", "Shattered",
+    "Shifting","Shimmering", "Silent","Silver","Sinister","Sleeping","Slow", "Smoldering","Sorry", "Starry","Still", "Stolen", "Stone", "Stoic","Stormy","Stormforged","Swift",
+    "Tattered","Thunderous","Timber","Tired", "Torn","Twisting","Verdant","Vile","Wandering","Weary","Weeping", "Whispering","White", 
+    "Wicked", "Wild", "Wistful", "Wooden", "Yellow", ]
+
+    nouns | [ "Alchemist","Anchor","Anvil","Arrow", "Atrium","Banshee","Barn", "Bard","Barrel","Bat", "Bean", "Bear","Bird", "Blade","Boar","Brewhouse",
+    "Briar","Brook","Burrow","Candle","Cantina","Captain","Carver","Cauldron","Cavern","Cellar","Chalice","Claw", "Cobbler", "Coffin", 
+    "Coin","Compass", "Corner","Cranny","Crown","Crow","Crypt","Dagger", "Den","Dice","Drifter","Dragon","Eagle", "Echo","Eye","Face","Faerie","Flagon","Flame", "Forge",
+    "Foyer","Fury", "Gallery","Giant","Goat", "Goblin","Grace","Grave","Griffin","Hammer", "Hand", "Harpy","Hawk","Hearth","Helm", "Hollow","Hood", "Hunter","Idol","Inn",
+    "Knife", "Knight","Kraken","Lantern","Leaf", "Leg", "Lion","Loft","Mage","Maiden","Mammoth","Martyr", "Mask","Mastiff","Mausoleum",
+    "Mermaid","Mercy", "Minstrel",
+    "Minotaur","Moon","Mount", "Oak","Onion", "Owl", "Parlor","Phoenix","Pie", "Pilgrim","Pine", "Pony","Prisoner", "Pub", "Rake", "Ranger","Rat", "Raven","Refuge","Relic","Rider","Robber",
+    "Rogue","Roost","Rose","Rune","Sailor","Saloon","Sanctum","Sanctuary","Scribe","Scythe", "Seeker","Sentry", "Serpent","Shade","Shaman",
+    "Shield","Sigil","Snake", "Soldier", "Soul","Spear","Spirit","Stag","Stallion", "Star","Stave","Steed", "Sun","Sword","Talon", "Tankard","Taproom","Tavern","Thicket","Thief",
+    "Thorn","Torch","Totem","Traveler","Tree", "Troll","Unicorn", "Vampire", "Viper","Wanderer","Warden","Warren","Widow","Widower","Willow",
+    "Witch","Wolf","Workshop","Wraith" ]
+    repeat 5
+        adj   | pick 1 from adjectives
+        noun  | pick 1 from nouns
+        tavern | "The" ++ adj ++ noun
+        say tavern
+    xx
+    repeat 5
+        left  | pick 1 from nouns
+        right | pick 1 from nouns
+        tavern | left ++ "and" ++ right
+        say tavern
+    xx
+    repeat 5
+        adj   | pick 1 from adjectives
+        noun  | pick 1 from nouns
+        tavern | adj ++ noun
+        say tavern
+    xx
+    repeat 3
+        owner   | pick 1 from nouns
+        place   | pick 1 from nouns
+        owner_s | owner + "'s"
+        tavern  | "The" ++ owner_s ++ place
+        say tavern
+    xx
+    repeat 2
+        adj   | pick 1 from adjectives
+        noun1 | pick 1 from nouns
+        noun2 | pick 1 from nouns
+        tavern | adj ++ noun1 ++ noun2
+        say tavern
+    xx
+xx
+tavern_generator()

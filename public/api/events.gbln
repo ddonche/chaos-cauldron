@@ -1,0 +1,115 @@
+act event_generator
+
+    /// Core ingredients
+    triggers | [
+      "A sudden storm hits",
+      "A messenger arrives",
+      "A rumor spreads",
+      "A patrol shows up",
+      "A strange omen appears",
+      "A nearby fire breaks out",
+      "A wagon crashes",
+      "A shrine is disturbed",
+      "A local festival begins",
+      "A bell rings unexpectedly",
+      "A scream echoes",
+      "A door is found ajar",
+      "A corpse is discovered",
+      "A child goes missing",
+      "A rival group appears",
+      "A bounty is posted",
+      "A bridge collapses",
+      "An unjust law is enforced today",
+      "A trade route closes",
+      "A warning is carved into wood",
+      "An ally is executed", 
+      "A valuable item is stolen", 
+      "A blizzard rolls in",
+      "A lightning strike hits",
+      "A coup has overthrown the government",
+      "Someone is injured in an accident",
+      "An innocent man is imprisoned", 
+      "An explosion rocks the town square",
+    ]
+
+    complications | [
+      "and someone is lying about why.",
+      "and the timing feels wrong.",
+      "and it points directly at the party.",
+      "and the locals blame outsiders.",
+      "and it smells like a setup.",
+      "and it gets worse after sundown.",
+      "and it spreads fast.",
+      "and the guards arrive late.",
+      "and the witnesses don’t agree.",
+      "and the evidence is missing.",
+      "and it’s too quiet afterward.",
+      "and a bell tolls every hour.",
+      "and it only affects one person.",
+      "and nobody wants to talk.",
+      "and it’s not the first time.",
+      "and someone offers hush money.",
+      "and a “helpful” stranger volunteers.",
+      "and the trail ends cleanly.",
+      "and the map doesn’t match.",
+      "and the solution costs more than gold.",
+      "and someone in the group is missing.",
+      "and the authorities turn a blind eye.",
+      "and nightfall here is dangerous.",
+      "and everyone is on edge.",
+      "and an unsuspecting person flees the scene.",
+      "and no one will offer help or solace.",
+      "and blood is on someone's hands.",
+      "and one of your group knows something.",
+      "and a mysterious stranger arrives.",
+      "and the authorities are pointing the finger at you.",
+      "and people are superstitious about it.",
+      "and townsfolk are blaming witchcraft.",
+      "and a woman in the know is kidnapped.",
+
+    ]
+
+    consequences | [
+      "Travel is delayed.",
+      "Supplies are damaged.",
+      "A meeting is missed.",
+      "A favor is owed.",
+      "A warning is ignored.",
+      "A door is closed to you.",
+      "A secret is exposed.",
+      "A friend becomes a suspect.",
+      "A rival gains ground.",
+      "The town turns hostile.",
+      "Prices double overnight.",
+      "A safe place isn’t safe anymore.",
+      "The party is watched.",
+      "A shortcut becomes dangerous.",
+      "Someone demands proof.",
+      "A rule changes mid-game.",
+      "A witness disappears.",
+      "A promise must be kept.",
+      "A debt is called in.",
+      "The next step is unclear.",
+      "The plan must change.",
+      "Resources are dwindling.",
+      "A key skill is temporarily hindered.",
+      "There will be no sleep this night.",
+      "Evil closes in.",
+      "Rumors spread like wildfire.",
+      "A lie threatens to derail everything.",
+      "A child's birth is an ill omen.",
+      "A traitor is in your midst.",
+    ]
+
+    /// 20 quick events (simple and punchy)
+    repeat 20
+        t | pick 1 from triggers
+        c | pick 1 from complications
+        k | pick 1 from consequences
+
+        line | t ++ c ++ k
+        say line
+    xx
+xx
+
+event_generator()

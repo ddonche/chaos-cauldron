@@ -1,0 +1,435 @@
+import React, { useState } from 'react';
+import { VenetianMask, RefreshCw } from 'lucide-react';
+
+export default function CharacterGenerator() {
+  const [character, setCharacter] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [expandedField, setExpandedField] = useState(null);
+  const [moreOptions, setMoreOptions] = useState([]);
+
+  // Placeholder generation functions - these would call your actual Goblin backend
+  const generateFullCharacter = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setCharacter({
+        name: generateRandomName(),
+        race: generateRandomRace(),
+        age: generateRandomAge(),
+        occupation: generateRandomOccupation(),
+        personality: generateRandomPersonality(),
+        appearance: generateRandomAppearance()
+      });
+      setLoading(false);
+    }, 500);
+  };
+
+  const wordPools = {
+    names: ['Aria', 'Theron', 'Garrick', 'Elara', 'Kael', 'Lyra', 'Dorian', 'Seraphina', 'Blackwood', 'Silverstream', 'Ironforge', 'Moonwhisper', 'Stormwind', 'Nightshade', 'Ashfall', 'Goldleaf'],
+    races: ['Human', 'Elf', 'Dwarf', 'Halfling', 'Orc', 'Tiefling', 'Dragonborn', 'Gnome'],
+    ages: ['18', '24', '28', '32', '38', '41', '45', '52', '67', '19', '29', '35'],
+    occupations: ['Merchant', 'Soldier', 'Blacksmith', 'Scholar', 'Thief', 'Healer', 'Hunter', 'Bard', 'Alchemist', 'Guard', 'Cook', 'Farmer'],
+    personalityTraits: ['Cunning', 'Ambitious', 'Ruthless', 'Kind', 'Naive', 'Optimistic', 'Stoic', 'Honorable', 'Witty', 'Hot-tempered', 'Loyal', 'Brave', 'Cautious', 'Wise', 'Patient', 'Cheerful', 'Reckless', 'Bold'],
+    appearanceTraits: ['Scarred', 'Lean', 'Sharp-eyed', 'Tall', 'Muscular', 'Lithe', 'Silver-haired', 'Pale', 'Short', 'Stocky', 'Bearded', 'Graceful', 'Elegant', 'Beautiful', 'Rugged', 'Slender']
+  };
+
+  const generateRandomName = () => {
+    const first = wordPools.names[Math.floor(Math.random() * wordPools.names.length)];
+    const last = wordPools.names[Math.floor(Math.random() * wordPools.names.length)];
+    return `${first} ${last}`;
+  };
+
+  const generateRandomRace = () => wordPools.races[Math.floor(Math.random() * wordPools.races.length)];
+  const generateRandomAge = () => wordPools.ages[Math.floor(Math.random() * wordPools.ages.length)];
+  const generateRandomOccupation = () => wordPools.occupations[Math.floor(Math.random() * wordPools.occupations.length)];
+  
+  const generateRandomPersonality = () => {
+    const traits = [];
+    const pool = [...wordPools.personalityTraits];
+    for (let i = 0; i < 3; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      traits.push(pool.splice(idx, 1)[0]);
+    }
+    return traits;
+  };
+
+  const generateRandomAppearance = () => {
+    const traits = [];
+    const pool = [...wordPools.appearanceTraits];
+    for (let i = 0; i < 3; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      traits.push(pool.splice(idx, 1)[0]);
+    }
+    return traits;
+  };
+
+  const regenerateField = (field) => {
+    const generators = {
+      name: generateRandomName,
+      race: generateRandomRace,
+      age: generateRandomAge,
+      occupation: generateRandomOccupation,
+      personality: generateRandomPersonality,
+      appearance: generateRandomAppearance
+    };
+    setCharacter({...character, [field]: generators[field]()});
+  };
+
+  const generateMore = (field) => {
+    if (expandedField === field) {
+      setExpandedField(null);
+      setMoreOptions([]);
+    } else {
+      const options = [];
+      
+      if (field === 'personality') {
+        // Generate 20 individual personality words
+        for (let i = 0; i < 20; i++) {
+          options.push(wordPools.personalityTraits[Math.floor(Math.random() * wordPools.personalityTraits.length)]);
+        }
+      } else if (field === 'appearance') {
+        // Generate 20 individual appearance words
+        for (let i = 0; i < 20; i++) {
+          options.push(wordPools.appearanceTraits[Math.floor(Math.random() * wordPools.appearanceTraits.length)]);
+        }
+      } else if (field === 'name') {
+        // Generate 20 names
+        for (let i = 0; i < 20; i++) {
+          options.push(generateRandomName());
+        }
+      } else if (field === 'occupation') {
+        // Generate 20 occupations
+        for (let i = 0; i < 20; i++) {
+          options.push(generateRandomOccupation());
+        }
+      }
+      
+      setMoreOptions(options);
+      setExpandedField(field);
+    }
+  };
+
+  const selectOption = (field, value) => {
+    if (field === 'personality' || field === 'appearance') {
+      // For multi-word fields, replace the entire array with 3 new random words including the selected one
+      const newTraits = [value];
+      const pool = field === 'personality' ? [...wordPools.personalityTraits] : [...wordPools.appearanceTraits];
+      const filtered = pool.filter(w => w !== value);
+      for (let i = 0; i < 2; i++) {
+        const idx = Math.floor(Math.random() * filtered.length);
+        newTraits.push(filtered.splice(idx, 1)[0]);
+      }
+      setCharacter({...character, [field]: newTraits});
+    } else {
+      setCharacter({...character, [field]: value});
+    }
+    setExpandedField(null);
+    setMoreOptions([]);
+  };
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+        
+        .font-title { font-family: 'Cormorant', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        
+        .nav-link {
+          position: relative;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          font-size: 0.875rem;
+          font-weight: 600;
+        }
+        
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: #ef4444;
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+          transform: scaleX(1);
+        }
+      `}</style>
+
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-zinc-800">
+        <div className="max-w-7xl mx-auto px-8 py-6">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-4">
+              <div className="text-4xl">🧪</div>
+              <div>
+                <h1 className="font-title text-3xl font-bold text-red-500 tracking-tight">
+                  <a href="/">Chaos Cauldron</a>
+                </h1>
+                <p className="text-xs text-zinc-500 font-body tracking-widest uppercase mt-1">Random Generator</p>
+              </div>
+            </div>
+            
+            {/* Navigation */}
+            <nav className="flex gap-10 font-body">
+              <a href="/#random" className="nav-link text-red-500 hover:text-red-300 transition-colors">
+                Random
+              </a>
+              <a href="/#ipsums" className="nav-link text-red-500 hover:text-red-300 transition-colors">
+                Ipsums
+              </a>
+              <a href="/#word-lists" className="nav-link text-red-500 hover:text-red-300 transition-colors">
+                Word Lists
+              </a>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-8 py-16">
+        {/* Page Header */}
+        <div className="flex items-center gap-4 mb-6">
+          <VenetianMask className="w-12 h-12 text-red-500" />
+          <div>
+            <h2 className="font-title text-4xl font-bold text-white">Character Generator</h2>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-lg text-zinc-400 font-body mb-12 leading-relaxed">
+          Generate unique characters complete with names, ages, occupations, personalities, and backstories. 
+          Perfect for writers, game masters, and storytellers who need quick NPC creation. Click the main 
+          button to generate a full character, or regenerate individual fields to fine-tune your creation.
+        </p>
+
+        {/* Generate Button */}
+        <div className="mb-12">
+          <button
+            onClick={generateFullCharacter}
+            disabled={loading}
+            className="w-full py-4 bg-red-600 hover:bg-red-500 disabled:bg-zinc-800 text-white font-body font-bold text-lg rounded transition-all disabled:cursor-not-allowed"
+          >
+            {loading ? 'Generating...' : 'Generate Character'}
+          </button>
+        </div>
+
+        {/* Results */}
+        {character && (
+          <div className="space-y-6">
+            {/* Name */}
+            <div className="border border-zinc-800 bg-zinc-900 p-6 rounded">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-body font-semibold text-zinc-400 uppercase tracking-wider">Name</label>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => regenerateField('name')}
+                    className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors font-body"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    Regenerate
+                  </button>
+                  <button
+                    onClick={() => generateMore('name')}
+                    className="text-sm text-zinc-400 hover:text-white transition-colors font-body"
+                  >
+                    More
+                  </button>
+                </div>
+              </div>
+              <div className="text-2xl font-title text-white">{character.name}</div>
+              
+              {expandedField === 'name' && (
+                <div className="mt-4 grid grid-cols-2 gap-2 max-h-64 overflow-y-auto border-t border-zinc-800 pt-4">
+                  {moreOptions.map((option, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => selectOption('name', option)}
+                      className="text-left p-2 rounded bg-zinc-800 hover:bg-zinc-700 text-white font-body text-sm transition-colors"
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Race */}
+            <div className="border border-zinc-800 bg-zinc-900 p-6 rounded">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-body font-semibold text-zinc-400 uppercase tracking-wider">Race</label>
+                <button
+                  onClick={() => regenerateField('race')}
+                  className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors font-body"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  Regenerate
+                </button>
+              </div>
+              <div className="text-2xl font-title text-white">{character.race}</div>
+            </div>
+
+            {/* Age */}
+            <div className="border border-zinc-800 bg-zinc-900 p-6 rounded">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-body font-semibold text-zinc-400 uppercase tracking-wider">Age</label>
+                <button
+                  onClick={() => regenerateField('age')}
+                  className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors font-body"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  Regenerate
+                </button>
+              </div>
+              <div className="text-2xl font-title text-white">{character.age}</div>
+            </div>
+
+            {/* Occupation */}
+            <div className="border border-zinc-800 bg-zinc-900 p-6 rounded">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-body font-semibold text-zinc-400 uppercase tracking-wider">Occupation</label>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => regenerateField('occupation')}
+                    className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors font-body"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    Regenerate
+                  </button>
+                  <button
+                    onClick={() => generateMore('occupation')}
+                    className="text-sm text-zinc-400 hover:text-white transition-colors font-body"
+                  >
+                    More
+                  </button>
+                </div>
+              </div>
+              <div className="text-2xl font-title text-white">{character.occupation}</div>
+              
+              {expandedField === 'occupation' && (
+                <div className="mt-4 grid grid-cols-2 gap-2 max-h-64 overflow-y-auto border-t border-zinc-800 pt-4">
+                  {moreOptions.map((option, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => selectOption('occupation', option)}
+                      className="text-left p-2 rounded bg-zinc-800 hover:bg-zinc-700 text-white font-body text-sm transition-colors"
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Personality */}
+            <div className="border border-zinc-800 bg-zinc-900 p-6 rounded">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-body font-semibold text-zinc-400 uppercase tracking-wider">Personality</label>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => regenerateField('personality')}
+                    className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors font-body"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    Regenerate
+                  </button>
+                  <button
+                    onClick={() => generateMore('personality')}
+                    className="text-sm text-zinc-400 hover:text-white transition-colors font-body"
+                  >
+                    More
+                  </button>
+                </div>
+              </div>
+              <div className="text-lg font-body text-white">{character.personality.join(', ')}</div>
+              
+              {expandedField === 'personality' && (
+                <div className="mt-4 grid grid-cols-2 gap-2 max-h-64 overflow-y-auto border-t border-zinc-800 pt-4">
+                  {moreOptions.map((option, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => selectOption('personality', option)}
+                      className="text-left p-2 rounded bg-zinc-800 hover:bg-zinc-700 text-white font-body text-sm transition-colors"
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Appearance */}
+            <div className="border border-zinc-800 bg-zinc-900 p-6 rounded">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-body font-semibold text-zinc-400 uppercase tracking-wider">Appearance</label>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => regenerateField('appearance')}
+                    className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors font-body"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    Regenerate
+                  </button>
+                  <button
+                    onClick={() => generateMore('appearance')}
+                    className="text-sm text-zinc-400 hover:text-white transition-colors font-body"
+                  >
+                    More
+                  </button>
+                </div>
+              </div>
+              <div className="text-lg font-body text-white">{character.appearance.join(', ')}</div>
+              
+              {expandedField === 'appearance' && (
+                <div className="mt-4 grid grid-cols-2 gap-2 max-h-64 overflow-y-auto border-t border-zinc-800 pt-4">
+                  {moreOptions.map((option, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => selectOption('appearance', option)}
+                      className="text-left p-2 rounded bg-zinc-800 hover:bg-zinc-700 text-white font-body text-sm transition-colors"
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {!character && (
+          <div className="text-center py-16 text-zinc-600 font-body">
+            Click "Generate Character" to create a random character
+          </div>
+        )}
+      </main>
+
+      {/* AdSense Placeholder */}
+      <div className="max-w-7xl mx-auto px-8 py-8">
+        <div className="w-full h-24 bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center">
+          <span className="text-zinc-600 text-sm font-body">AdSense Ad Unit</span>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="relative border-t border-zinc-800 bg-black">
+        <div className="max-w-7xl mx-auto px-8 py-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-sm text-zinc-600 font-body">
+              © 2025 Chaos Cauldron. All rights reserved. · Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400 transition-colors">Goblin Lang</a>
+            </div>
+            <div className="flex gap-8 text-sm font-body font-medium">
+              <a href="#" className="text-red-500 hover:text-red-400 transition-colors uppercase tracking-wider text-xs">About</a>
+              <a href="#" className="text-red-500 hover:text-red-400 transition-colors uppercase tracking-wider text-xs">Suggest</a>
+              <a href="#" className="text-red-500 hover:text-red-400 transition-colors uppercase tracking-wider text-xs">API</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

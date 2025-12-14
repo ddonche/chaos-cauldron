@@ -1,0 +1,86 @@
+act place_name_generator
+    adjectives | [
+        "Amber", "Ancient","Arcane","Ashen","Barter", "Black", "Blue", "Bright","Bronze","Brown","Cold", "Crumbling", "Dark","Drawn", "Dusky",
+        "Elden", "Elder", "Emerald","Eternal", "Ethereal", 
+        "Everwind","Fallen","Fire", "Forgotten","Forsaken","Frozen","Gloomy","Gold","Golden","Grim","Hidden","High",
+        "Hollow","Ice", "Iron","Ivory","Low","Marble", "Misty","Moonlit","Obsidian","Old", "Radiant","Raven","Red",
+        "Rosebeard","Ruby", "Ruined", "Rusted","Sacred","Sandy", "Sapphire","Scarlet","Shadowed","Shattered","Silent","Sinister",
+        "Smoldering","Stone", "Stormy","Tattered","Timber","Twisting","Wandering","Warm", "Whispering", "White",
+    ]
+    geo_nouns | [
+        "Arch", "Bastion","Bay","Bog","Borough","Bridge","Briar","Camp", "Castle", "Citadel","City","Cliffs","Commons","Cove",
+        "Crag", "Crossing", "Dell", "Docks", "Downs", "Estate", "Fen","Fens","Fields","Ford","Forest","Fort", "Fortress", "Gate","Grove","Harbor","Haven",
+        "Heath","Heights","Hill","Hold","Hollow","Keep","Lagoon","Landing", "Manor", "Manse", "Market","Marsh","Meadow",
+        "Moor","Outpost","Pass","Peak","Plain","Port","Reach","Refuge","Rest","Ridge","Rock","Row", "Ruins", "Run",
+        "Sanctum","Sands","Shire","Spire","Square","Stronghold","Thicket", "Tower", "Town","Vale","Village",
+        "Warren","Wastes","Watch","Woods"
+    ]
+    region_words | [
+        "Barrens", "Broken Coast","Dales", "Dires", "Drawers", "Droves", "East", "Expanse","Fallen Realm","Highlands","Kingdom","Kingdoms","Lowlands",
+        "Marches","North", "Old Road","Plains", "Realm", "Sands", "Shire","South", "Steppes","Swamplands","Wastes","West", "Wilds"
+    ]
+    owners | [
+        "Barter","Bear","Bishop","Captain","Chancellor","Dandy","Dragon","Drover", "Drunkard", "Eagle", "Ironhand","King","Lich", "Lion",
+        "Mayor","Merchant","Oakheart","Prince","Prisoner", "Queen","Raven","Redcloak","River","Rumor",
+        "Storm","Warden","Witch", "Wizard", "Wolf"
+    ]
+    geo_prefixes | [
+        "Amber","Barter","Black", "Cold", "Dark", "Dim", "Drift", "Dry", "Edge", "Ember", "End", "Even", "Ever","Fire", "Frost","Gloom", 
+        "Gold","Grim", "High", "Ice", 
+        "Iron", "Kill", "Low", "Mar", "Mid", "Middle", "Mist","Moon","Night","Oak","Over",
+        "Raven","Red","Rim", "River","Rose","Shadow","Silver", "Sky", "Spark", "Star","Stone","Storm","Sun","Under", "White", "Wind", "Winter"
+    ]
+    geo_suffixes | [
+        "arch", "barrow","bend", "brook","crest","dale", "del", "end", "fall","field","ford","gard", "gate","grave","hand", "haven","hearth","helm",
+        "hold","keep", "march", "mark",
+        "pass","port","reach","ridge","rim", "rock", "sail", "sand", "shore","ton", "town","vale","view","wall","ward","watch", "wyn",
+    ]
+    /// Syllables for invented names (Rohan / Mordor / Aeryl / Averia vibes)
+    name_syllables | [
+        "Aer","Ael","Aes","Am", "Ar","Ash","Ava","Aver","Bal","Bar","Bel","Ben", "Bor","Bu", "Cal","Cala", "Cel", "Cor",
+        "Daer","Dar","Den","Dor","Drak", "Dre", "Dun","El","Eld","Elda","Elen","Emen", "Eri", "Esta", "Fal","Fen", "Fer","Gal",
+        "Gan", "Gar", "Gen", "Ger", "Gor", "Gre", "Hal","Har","Hel", "Id", "Il", "Iri","Ith","Kael","Kaer","Kar", "Ke", "Kel", "Ken",
+         "Ki", "Ko", "Kor","Lar", "Le", "Lum","Lumi",
+        "Lun","Mal","Mel", "Mid", "Mor","Mord", "Mu", "Nae", "Nar", "Ne", "Nor","On", "Or","Ori","Oth","Qa", "Qe", "Qi", "Qo", "Quen", "Qui", 
+        "Ra", "Ran", "Ras","Rav", "Re", "Rel", "Ren", "Rin",
+        "Roh","Roth","Sar","Saro","Sel","Sha","Shar","Sil","Tal", "Tam", "Tan","Tar", "Te", "Tel", "Tem", "Tes", "Thal","Thar", "The", 
+        "Thor","Tor","Um","Ur","Val","Vala","Var","Vel", "Vha", "Vhe", "Vor","Vori", "Wa", "Wan", "Wel", "Wu", "Yra","Zar","Zel"
+    ]
+    /// Style 1: Adjective + Noun (Raven Rock, Red Pass, Everwind City)
+    repeat 5
+        adj  | pick 1 from adjectives
+        noun | pick 1 from geo_nouns
+        place | adj ++ noun
+        say place
+    xx
+    /// Style 2: Possessive Landmark (King's Landing, Rosebeard Peak)
+    repeat 5
+        owner | pick 1 from owners
+        noun  | pick 1 from geo_nouns
+        owner_s | owner + "'s"
+        place | "The" ++ owner_s ++ noun
+        say place
+    xx
+    /// Style 3: Region Names (The Shire, The Wilds, The Wastes)
+    repeat 4
+        region | pick 1 from region_words
+        place  | "The" ++ region
+        say place
+    xx
+    /// Style 4: Compound Geo (Overvale, Everwind, Bartertown-style)
+    repeat 3
+        pre | pick 1 from geo_prefixes
+        suf | pick 1 from geo_suffixes
+        place | pre + suf
+        say place
+    xx
+    /// Style 5: Invented Fantasy Names (2–3 syllables, title-cased)
+    repeat 3
+        count | pick 1 from 2..3
+        parts | pick {count} from name_syllables
+        raw_name | :pack(parts)
+        place | raw_name.title
+        say place
+    xx
+xx
+place_name_generator()
