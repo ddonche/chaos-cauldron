@@ -101,6 +101,8 @@ act event_generator
       "A traitor is in your midst.",
     ]
 
+    out | []
+
     /// 20 quick events (simple and punchy)
     repeat 20
         t | pick 1 from triggers
@@ -108,7 +110,12 @@ act event_generator
         k | pick 1 from consequences
 
         line | t ++ c ++ k
-        say line
+        put_last!(out, line)
+    xx
+
+    shuffled | shuffle(out)
+    for item in shuffled
+        say item
     xx
 xx
 

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Color Generator – Named Colors for RPGs &amp; Writing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate 20 named color ideas for RPGs, writing, worldbuilding, and item flavor. Great for flags, potions, gems, fabrics, and magical effects.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Header -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>
+              <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+              <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+              <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+              <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Color Generator</h2>
+            <p class="cc-page-subtitle">
+              Generate named color ideas for items, flags, potions, dyes, and magical effects.
+              Great for quick flavor and vivid descriptions.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-colors" class="cc-button-primary" type="button">
+            Generate Colors
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO -->
+      <p class="cc-page-seo">
+        This color generator produces a shuffled list of named colors for tabletop RPGs, fiction writing,
+        and worldbuilding. Use these names to spice up loot, heraldry, alchemy, creature descriptions,
+        and scene mood.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/words/adjectives.html">Adjectives</a>,
+        <a href="/words/nouns.html">Nouns</a>,
+        <a href="/random/loot.html">Loot Generator</a>
+      </p>
+
+      <!-- Results -->
+      <div class="cc-generator-panel">
+        <div id="cc-color-empty" class="cc-empty-state">
+          Click <strong>Generate Colors</strong> to create a list of 20 named colors.
+        </div>
+
+        <div id="cc-color-results" class="cc-results-grid" hidden>
+          <!-- injected -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+  (function () {
+    const button = document.getElementById('cc-generate-colors');
+    const results = document.getElementById('cc-color-results');
+    const empty = document.getElementById('cc-color-empty');
+
+    function render(items) {
+      results.innerHTML = '';
+      items.forEach(line => {
+        // Split "Crimson | #DC143C" into name and hex
+        const [name, hex] = line.split(' | ');
+        
+        const card = document.createElement('div');
+        card.className = 'cc-result-card cc-color-card';
+        
+        // Create color swatch
+        const swatch = document.createElement('span');
+        swatch.className = 'cc-color-swatch';
+        swatch.style.backgroundColor = hex;
+        
+        // Create text with both name and hex
+        const text = document.createElement('span');
+        text.textContent = `${name} (${hex})`;
+        
+        card.appendChild(swatch);
+        card.appendChild(text);
+        results.appendChild(card);
+      });
+    }
+
+    async function fetchColors() {
+      const res = await fetch('/api/colors', {
+        headers: { 'Accept': 'text/plain' }
+      });
+      if (!res.ok) throw new Error(res.status);
+      return (await res.text())
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    let busy = false;
+
+    button.addEventListener('click', async () => {
+      if (busy) return;
+      busy = true;
+
+      button.textContent = 'Generating…';
+      button.classList.add('cc-button-loading');
+
+      try {
+        const items = await fetchColors();
+        render(items);
+        empty.style.display = 'none';
+        results.removeAttribute('hidden');
+        button.textContent = 'Generate More';
+      } catch (e) {
+        console.error(e);
+        button.textContent = 'Error – Try Again';
+      } finally {
+        button.classList.remove('cc-button-loading');
+        busy = false;
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>

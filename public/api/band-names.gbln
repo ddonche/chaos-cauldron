@@ -64,12 +64,14 @@ act band_name_generator
     the_left | [ "Ashes","Blood","City","Coffin","Crystal","Funeral","House","Midnight","Neon","Radio","Shadow","Sewer","Stone","Storm","Sunset","War","Weekend","Whispers","Wretched" ]
     in_left  | [ "Lost","Broken","Falling","Bleeding","Risen","Rising","Leaving","Ruined","Stained" ]
 
+    out | []
+
     /// 1) Owner' Noun (1)
     repeat 1
         owner | pick 1 from owners_apostrophe
         noun  | pick 1 from nouns
         name  | owner + "'" ++ noun
-        say name
+        put_last!(out, name)
     xx
 
     /// 2) Owner's Noun (1) (avoid owners_apostrophe via reroll loop)
@@ -84,7 +86,7 @@ act band_name_generator
         xx
         noun  | pick 1 from nouns
         name  | owner + "'s" ++ noun
-        say name
+        put_last!(out, name)
     xx
 
     /// 3) The X Y (3)
@@ -92,7 +94,7 @@ act band_name_generator
         left  | pick 1 from the_left
         right | pick 1 from nouns
         name  | "The" ++ left ++ right
-        say name
+        put_last!(out, name)
     xx
 
     /// 4) X and the Y (3)
@@ -100,7 +102,7 @@ act band_name_generator
         left  | pick 1 from nouns
         right | pick 1 from nouns
         name  | left ++ "and the" ++ right
-        say name
+        put_last!(out, name)
     xx
 
     /// 5) X in Y (2)
@@ -108,7 +110,7 @@ act band_name_generator
         left  | pick 1 from in_left
         right | pick 1 from nouns
         name  | left ++ "in" ++ right
-        say name
+        put_last!(out, name)
     xx
 
     /// 6) X in the Y (2)
@@ -116,7 +118,7 @@ act band_name_generator
         left  | pick 1 from in_left
         right | pick 1 from nouns
         name  | left ++ "in the" ++ right
-        say name
+        put_last!(out, name)
     xx
 
     /// 7) X of Y (2)
@@ -124,7 +126,7 @@ act band_name_generator
         left  | pick 1 from nouns
         right | pick 1 from nouns
         name  | left ++ "of" ++ right
-        say name
+        put_last!(out, name)
     xx
 
     /// 8) X of the Y (2)
@@ -132,7 +134,7 @@ act band_name_generator
         left  | pick 1 from nouns
         right | pick 1 from nouns
         name  | left ++ "of the" ++ right
-        say name
+        put_last!(out, name)
     xx
 
     /// 9) Adj + Noun (2)
@@ -140,7 +142,7 @@ act band_name_generator
         adj  | pick 1 from adjectives
         noun | pick 1 from nouns
         name | adj ++ noun
-        say name
+        put_last!(out, name)
     xx
 
     /// 10) Noun + People (2)
@@ -148,7 +150,7 @@ act band_name_generator
         noun | pick 1 from nouns
         ppl  | pick 1 from people
         name | noun ++ ppl
-        say name
+        put_last!(out, name)
     xx
 
     /// 11) Adj + Noun + People (2)
@@ -157,7 +159,7 @@ act band_name_generator
         noun | pick 1 from nouns
         ppl  | pick 1 from people
         name | adj ++ noun ++ ppl
-        say name
+        put_last!(out, name)
     xx
 
     /// 12) Two-digit + Noun (2) => 21 Pilots
@@ -165,7 +167,7 @@ act band_name_generator
         num  | pick 1 from 10...99
         noun | pick 1 from nouns
         name | str(num) ++ noun
-        say name
+        put_last!(out, name)
     xx
 
     /// 13) Noun + single digit (2) => "Skull 9" vibe (NO digit_words)
@@ -173,7 +175,12 @@ act band_name_generator
         w   | pick 1 from nouns
         num | pick 1 from 2...9
         name | w ++ str(num)
-        say name
+        put_last!(out, name)
+    xx
+
+    shuffled | shuffle(out)
+    for item in shuffled
+        say item
     xx
 
 xx

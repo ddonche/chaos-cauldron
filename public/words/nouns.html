@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Noun Generator – Random Nouns for RPGs & Writing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate 20 random nouns for RPGs, writing, worldbuilding, and naming. Useful for characters, locations, items, and inspiration.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-brand">
+        <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+        <div class="cc-brand-text">
+          <h1 class="cc-site-title">Chaos Cauldron</h1>
+          <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+        </div>
+      </div>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Header -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Noun Generator</h2>
+            <p class="cc-page-subtitle">
+              Generate random nouns for naming, worldbuilding, RPG prep, and creative writing.
+              Great for places, items, factions, and ideas.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-nouns" class="cc-button-primary" type="button">
+            Generate Nouns
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO -->
+      <p class="cc-page-seo">
+        This noun generator produces a shuffled list of useful nouns for tabletop RPGs,
+        fiction writing, and brainstorming. Combine them with adjectives or verbs to
+        create names, hooks, and concepts.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/words/adjectives.html">Adjectives</a>,
+        <a href="/words/verbs.html">Verbs</a>,
+        <a href="/random/npc.html">NPC Generator</a>
+      </p>
+
+      <!-- Results -->
+      <div class="cc-generator-panel">
+        <div id="cc-noun-empty" class="cc-empty-state">
+          Click <strong>Generate Nouns</strong> to create a list of 20 random nouns.
+        </div>
+
+        <div id="cc-noun-results" class="cc-results-grid" hidden>
+          <!-- injected -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+  (function () {
+    const button = document.getElementById('cc-generate-nouns');
+    const results = document.getElementById('cc-noun-results');
+    const empty = document.getElementById('cc-noun-empty');
+
+    function render(items) {
+      results.innerHTML = '';
+      items.forEach(word => {
+        const card = document.createElement('div');
+        card.className = 'cc-result-card';
+        card.textContent = word;
+        results.appendChild(card);
+      });
+    }
+
+    async function fetchNouns() {
+      const res = await fetch('/api/nouns', {
+        headers: { 'Accept': 'text/plain' }
+      });
+      if (!res.ok) throw new Error(res.status);
+      return (await res.text())
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    let busy = false;
+
+    button.addEventListener('click', async () => {
+      if (busy) return;
+      busy = true;
+
+      button.textContent = 'Generating…';
+      button.classList.add('cc-button-loading');
+
+      try {
+        const items = await fetchNouns();
+        render(items);
+        empty.style.display = 'none';
+        results.removeAttribute('hidden');
+        button.textContent = 'Generate More';
+      } catch (e) {
+        console.error(e);
+        button.textContent = 'Error – Try Again';
+      } finally {
+        button.classList.remove('cc-button-loading');
+        busy = false;
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>
