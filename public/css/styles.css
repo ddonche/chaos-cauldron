@@ -81,6 +81,12 @@ body::after {
   gap: 0.75rem;
 }
 
+.cc-brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .cc-logo {
   width: 90px;      /* tweak size here */
   height: 90px;

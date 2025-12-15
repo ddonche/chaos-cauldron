@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Noun Generator – Random Nouns for RPGs & Writing</title>
+  <title>Loot Generator – Random Treasure, Trinkets &amp; Magic Items</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Generate 20 random nouns for RPGs, writing, worldbuilding, and naming. Useful for characters, locations, items, and inspiration.">
+  <meta name="description" content="Generate 20 random loot items for fantasy RPGs and storytelling. Includes treasure, trinkets, potions, scrolls, and strange magical finds.">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -49,22 +49,24 @@
               stroke-linejoin="round"
               aria-hidden="true"
             >
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+              <path d="M16.17 7.83 2 22"/>
+              <path d="M4.02 12a2.827 2.827 0 1 1 3.81-4.17A2.827 2.827 0 1 1 12 4.02a2.827 2.827 0 1 1 4.17 3.81A2.827 2.827 0 1 1 19.98 12a2.827 2.827 0 1 1-3.81 4.17A2.827 2.827 0 1 1 12 19.98a2.827 2.827 0 1 1-4.17-3.81A1 1 0 1 1 4 12"/>
+              <path d="m7.83 7.83 8.34 8.34"/>
             </svg>
           </div>
 
           <div>
-            <h2 class="cc-page-title">Noun Generator</h2>
+            <h2 class="cc-page-title">Loot Generator</h2>
             <p class="cc-page-subtitle">
-              Generate random nouns for naming, worldbuilding, RPG prep, and creative writing.
-              Great for places, items, factions, and ideas.
+              Generate random treasure, trinkets, and magical finds.
+              Perfect for chests, pockets, vendors, and “what do they have?” moments.
             </p>
           </div>
         </div>
 
         <div class="cc-generator-actions">
-          <button id="cc-generate-nouns" class="cc-button-primary" type="button">
-            Generate Nouns
+          <button id="cc-generate-loot" class="cc-button-primary" type="button">
+            Generate Loot
           </button>
         </div>
       </div>
@@ -73,25 +75,25 @@
 
       <!-- SEO -->
       <p class="cc-page-seo">
-        This noun generator produces a shuffled list of useful nouns for tabletop RPGs,
-        fiction writing, and brainstorming. Combine them with adjectives or verbs to
-        create names, hooks, and concepts.
+        This fantasy loot generator creates a shuffled set of treasure items, trinkets, potions, scrolls,
+        and strange valuables. Use it for tabletop RPGs, creative writing, and worldbuilding when you need
+        quick flavor or a surprise reward.
       </p>
 
       <p class="cc-related">
         Related tools:
-        <a href="/words/adjectives.html">Adjectives</a>,
-        <a href="/words/verbs.html">Verbs</a>,
-        <a href="/random/npc.html">NPC Generator</a>
+        <a href="/random/tavern.html">Tavern Names</a>,
+        <a href="/random/quest-hook.html">Quest Hooks</a>,
+        <a href="/words/colors.html">Colors</a>
       </p>
 
       <!-- Results -->
       <div class="cc-generator-panel">
-        <div id="cc-noun-empty" class="cc-empty-state">
-          Click <strong>Generate Nouns</strong> to create a list of 20 random nouns.
+        <div id="cc-loot-empty" class="cc-empty-state">
+          Click <strong>Generate Loot</strong> to create 20 treasure items.
         </div>
 
-        <div id="cc-noun-results" class="cc-results-grid" hidden>
+        <div id="cc-loot-results" class="cc-results-grid" hidden>
           <!-- injected -->
         </div>
       </div>
@@ -118,22 +120,22 @@
   <!-- JS -->
   <script>
   (function () {
-    const button = document.getElementById('cc-generate-nouns');
-    const results = document.getElementById('cc-noun-results');
-    const empty = document.getElementById('cc-noun-empty');
+    const button = document.getElementById('cc-generate-loot');
+    const results = document.getElementById('cc-loot-results');
+    const empty = document.getElementById('cc-loot-empty');
 
     function render(items) {
       results.innerHTML = '';
-      items.forEach(word => {
+      items.forEach(text => {
         const card = document.createElement('div');
         card.className = 'cc-result-card';
-        card.textContent = word;
+        card.textContent = text;
         results.appendChild(card);
       });
     }
 
-    async function fetchNouns() {
-      const res = await fetch('/api/nouns', {
+    async function fetchLoot() {
+      const res = await fetch('/api/loot', {
         headers: { 'Accept': 'text/plain' }
       });
       if (!res.ok) throw new Error(res.status);
@@ -153,7 +155,7 @@
       button.classList.add('cc-button-loading');
 
       try {
-        const items = await fetchNouns();
+        const items = await fetchLoot();
         render(items);
         empty.style.display = 'none';
         results.removeAttribute('hidden');

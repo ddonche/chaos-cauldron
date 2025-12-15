@@ -1,0 +1,235 @@
+/// loot.gbln
+/// Multi-genre loot drop (original): fantasy + post-apoc + adventure vibes.
+/// Generates 20 items, shuffles them, then prints them.
+/// NO if/elif branching: just correct buckets + fixed patterns.
+
+act loot_generator
+    adjectives | [
+        "Ancient","Arcane","Blessed","Cursed","Dusty","Faded","Forgotten","Gilded","Cracked","Shimmering","Glowing",
+        "Whispering","Silent","Stormforged","Moonlit","Bloodied","Sacred","Vile","Radiant","Worn","Tattered",
+        "Pristine","Jagged","Frostbitten","Sooted","Shadowed","Gleaming","Serrated","Runed","Heavy","Fine",
+        "Bedazzled","Bejeweled","Unholy","Sullied"
+    ]
+
+    /// ---------------------------
+    /// FANTASY / SWORD & SORCERY
+    fantasy_metals | [ "Iron","Steel","Bronze","Silver","Gold" ]
+    fantasy_soft   | [ "Leather","Hide","Cloth","Silk","Satin","Wool","Cotton","Fur" ]
+
+    fantasy_weapons | [
+        "Dagger","Sword","Knife","Dirk","Polearm","Scythe","Club","Staff","Axe","Mace","Spear",
+        "Bow","Crossbow","Warhammer","Halberd"
+    ]
+
+    fantasy_armor_metal | [ "Helm","Cuirass","Greaves","Gauntlets","Bracers","Shield","Buckler" ]
+    fantasy_armor_soft  | [ "Boots","Cloak","Hood","Robe","Vestments","Rags","Trousers","Tunic" ]
+
+    weapon_addons | [
+        "with a notched edge","with a chipped guard","with a wrapped grip","with a rune-etched blade",
+        "with a weighted pommel","with a serrated spine","with a barbed head","with a cracked haft",
+        "with a leather-wrapped hilt","with a broken crossguard"
+    ]
+
+    /// Generated consumables (no more hardcoded “Tonic/Elixir/etc.” lines)
+    effects | [
+        "Healing","Clarity","Night-Eye","Warding","Swiftness","Antivenom","Stamina","Fireguard","Frostguard",
+        "Shockguard","Purging","Waterbreath","Veil","Strength","Vitality","Focus","Silence","Luck","Courage"
+    ]
+
+    consumable_forms | [
+        "Potion","Tonic","Elixir","Draught","Brew","Poultice","Oil","Salve","Serum","Tablets"
+    ]
+
+    /// Generated scrolls / papers (not only “Scroll of …”)
+    spell_actions | [
+        "Flame","Frost","Lightning","Warding","Binding","Dispel","Mending","Illusion","Sleep","Light",
+        "Stoneform","Summoning","Fear","Calm","Silence","Command","Revelation","Banishment","Hex","Sanctuary"
+    ]
+
+    spell_forms | [ "Scroll","Rune","Sigil","Glyph","Charm" ]
+
+    magic_items | [ "Ring","Amulet","Pendant","Necklace","Bracelet","Brooch","Signet Ring","Talisman" ]
+    magic_concepts | [ "Fire","Frost","Shadows","Warding","Silence","Swiftness","Binding","Light","Blood","Storms" ]
+
+    /// ---------------------------
+    /// POST-APOC / SCAVENGER VIBE
+    scav_tools | [
+        "Pocket Knife","Hand Lamp","Rope Coil","Lock Picks","Canteen","Filter Mask","Hammer","Lighter",
+        "Bandage Roll","Field Rations","Repair Kit","Battery Pack","Signal Flare","Compass","Crowbar",
+        "First Aid Kit","Signal Mirror"
+    ]
+
+    ammo_types | [
+        "Small-Caliber Rounds","Rifle Rounds","Heavy Rounds","Shot Shells","Energy Cells","Spare Cartridges"
+    ]
+
+    chems | [
+        "Painkillers","Antibiotics","Stimulant Vial","Sedative Vial","Focus Tablets","Burn Salve","Antitoxin"
+    ]
+
+    scrap_metal | [ "Tin","Aluminum","Copper","Brass","Steel","Iron","Titanium","Stainless Steel" ]
+
+    salvage_metal | [
+        "Metal Plate","Bolts and Nuts","Gear Cluster","Spring Bundle","Screw Set","Pipe Segment","Chain Link",
+        "Sprocket","Nails","Drill Bit"
+    ]
+
+    salvage_elec | [
+        "Wire Spool","Fuse Pack","Circuit Scrap","Contact Pins","Switch Parts","Capacitor Pack"
+    ]
+
+    /// ---------------------------
+    /// VALUABLES
+    gems | [
+        "Ruby","Sapphire","Emerald","Pearl","Onyx","Amber","Jade","Crystal","Moonstone","Garnet","Opal",
+        "Amethyst","Diamond","Topaz","Peridot","Citrine","Lapis Lazuli","Beryl","Jasper","Obsidian"
+    ]
+
+    /// ---------------------------
+    /// FLAVOR TRINKETS (pure nouns)
+    trinket_nouns | [
+        "Key","Letter","Talisman","Idol","Map Case","Lockbox","Charm","Traveler’s Token","Locket","Lucky Coin"
+    ]
+
+    quirks | [
+        "hums softly","is warm to the touch","smells of smoke","is slick with oil","is etched with a name",
+        "drips faintly","rings when shaken","won’t get dirty","feels heavier than it looks","casts a thin shadow",
+        "leaves frost on skin","whispers at night","glows near danger","makes candles sputter","feels watched"
+    ]
+
+    out | []
+
+    /// ===========================
+    /// FANTASY CORE (11)
+
+    /// Weapons (4): 2 clean + 2 with addon
+    repeat 2
+        adj | pick 1 from adjectives
+        mat | pick 1 from fantasy_metals
+        wpn | pick 1 from fantasy_weapons
+        loot | adj ++ mat ++ wpn
+        put_last!(out, loot)
+    xx
+
+    repeat 2
+        adj | pick 1 from adjectives
+        mat | pick 1 from fantasy_metals
+        wpn | pick 1 from fantasy_weapons
+        add | pick 1 from weapon_addons
+        loot | adj ++ mat ++ wpn + " (" + add + ")"
+        put_last!(out, loot)
+    xx
+
+    /// Armor (3): 2 metal + 1 soft
+    repeat 2
+        adj | pick 1 from adjectives
+        mat | pick 1 from fantasy_metals
+        arm | pick 1 from fantasy_armor_metal
+        loot | adj ++ mat ++ arm
+        put_last!(out, loot)
+    xx
+
+    repeat 1
+        adj | pick 1 from adjectives
+        mat | pick 1 from fantasy_soft
+        arm | pick 1 from fantasy_armor_soft
+        loot | adj ++ mat ++ arm
+        put_last!(out, loot)
+    xx
+
+    /// Consumables (2): {Effect} {Form}
+    repeat 2
+        e | pick 1 from effects
+        f | pick 1 from consumable_forms
+        loot | e ++ f
+        put_last!(out, loot)
+    xx
+
+    /// Spell paper (1): {SpellForm} of {SpellAction}
+    repeat 1
+        sf | pick 1 from spell_forms
+        sp | pick 1 from spell_actions
+        loot | sf ++ "of" ++ sp
+        put_last!(out, loot)
+    xx
+
+    /// Magic focus item (1): {Item} of {Concept}
+    repeat 1
+        it | pick 1 from magic_items
+        mc | pick 1 from magic_concepts
+        loot | it ++ "of" ++ mc
+        put_last!(out, loot)
+    xx
+
+    /// ===========================
+    /// POST-APOC / SCAVENGER (5)
+
+    /// Tool (1)
+    repeat 1
+        t | pick 1 from scav_tools
+        put_last!(out, t)
+    xx
+
+    /// Ammo stack (1)
+    repeat 1
+        a | pick 1 from ammo_types
+        amt | pick 1 from 8...60
+        loot | str(amt) ++ a
+        put_last!(out, loot)
+    xx
+
+    /// Chem/med (1)
+    repeat 1
+        m | pick 1 from chems
+        put_last!(out, m)
+    xx
+
+    /// Salvage (2): METAL + ELECTRICAL
+    repeat 1
+        mat | pick 1 from scrap_metal
+        s   | pick 1 from salvage_metal
+        loot | mat ++ s
+        put_last!(out, loot)
+    xx
+
+    repeat 1
+        s | pick 1 from salvage_elec
+        put_last!(out, s)
+    xx
+
+    /// ===========================
+    /// VALUABLES (3)
+    repeat 1
+        amt  | pick 1 from 10...160
+        loot | str(amt) ++ "Copper Coins"
+        put_last!(out, loot)
+    xx
+
+    repeat 1
+        amt  | pick 1 from 5...120
+        loot | str(amt) ++ "Silver Coins"
+        put_last!(out, loot)
+    xx
+
+    repeat 1
+        g | pick 1 from gems
+        put_last!(out, g)
+    xx
+
+    /// ===========================
+    /// FLAVOR (1): {Adj} {Trinket} ({quirk})
+    repeat 1
+        adj | pick 1 from adjectives
+        tr  | pick 1 from trinket_nouns
+        q   | pick 1 from quirks
+        loot | adj ++ tr + " (" + q + ")"
+        put_last!(out, loot)
+    xx
+
+    shuffled | shuffle(out)
+    for item in shuffled
+        say item
+    xx
+xx
+
+loot_generator()
