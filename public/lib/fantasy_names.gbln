@@ -213,9 +213,16 @@ act fantasy_last_name
 
     /// Epithets (treated as last names)
     ep | [
-        "Bold","White","Black","Red","Grey","Silent","Swift","Clever","Grim",
-        "Merciful","Cruel","Ashen","Ironhearted","Stormborn","Oathbound",
-        "Fox","Wolf","Raven","Stag","Unbroken"
+        "Adept","Ashen","Big","Bland","Black","Blind","Blue","Bold","Bore","Brave","Bull",
+        "Clever","Cold","Crafty","Craven","Cruel","Cursed",
+        "Dark","Darkheart","Dim","Dirty","Dog","Dull","Dumb","Elder","Fox","Free",
+        "Gay","Giant","Gifted","Giving","Gold","Green","Grey","Grim","Halfheart","Haunted","Heartless",
+        "Ironhearted","Kind","Legend","Liar","Lost","Loving",
+        "Mad","Mean","Merciful","Merciless","Mute","Naked","Nasty",
+        "Oathbound","Poor","Quiet","Raven","Raving","Red","Restless",
+        "Sage","Sane","Scarred","Shifty","Sick","Silent","Sleepy","Slim","Snake","Sneak","Sour","Stag",
+        "Stormborn","Strange","Stupid","Swift",
+        "Umber","Unbroken","Weasel","White","Wise","Wolf","Younger",
     ]
 
     /// Weighting: mostly surnames, sometimes epithet
