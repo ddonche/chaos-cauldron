@@ -1,0 +1,58 @@
+/// fantasy-names.gbln
+/// Shared fantasy name lists for NPC + Character.
+/// IMPORTANT: no top-level execution in this file.
+
+act fantasy_first_name
+    /// Alphabetized syllables only (name-safe)
+    syllables | [
+        "ael","aer","ag","al","am","an","ap","ar","as","at","aw","be","bed","bel","bem","ben","bo","bog","bol","bon","bos","bra",
+        "bre","bro","bru","ca","cad","cag","cal","cam","can","car","cas","cat","caw","cax","cay","ce","ced","cel","cor","da","del","dor",
+        "el","eli","em","fa","fre","gar","hal","hol","ila","ir","ja","jun","ka","kel",
+        "la","li","lor","ly","mae","mal","mar","mel","na","ne","nor","ody","or","per",
+        "pet","ra","re","ri","rin","ro","ru","sa","sel","sil","sor","ta","th","to","va","ve","wr"
+    ]
+
+    /// Decide how many syllables (weighted toward 2)
+    count | pick 1 from [1,2,2,3]
+
+    parts | pick {count} from syllables
+    name  | :pack(parts)
+
+    name.title
+xx
+
+
+act fantasy_last_name
+    last_prefix | [
+            "Air","All","Amber","Ar","Arrow","Ash","Barter","Bear","Black","Blue","Briar","Bronze","Brown","Car","Cart","Cloud",
+            "Cold","Crow","Dark","Dim","Dusk","Dust","Eagle","East","Ember","Fair","Falcon","Fall","Far","Frost",
+            "Glad","Gold","Grave","Gray","Great","Green","Grey","Grim","Hall","Hallow","Hard","Hare","Hawk","Hearth",
+            "High","Hill","Ice","Iron","Jade","Kestrel","King","Knight","Light",
+            "Lock","Low","Mourn","Nice","Nor","North","Oak","Oaken","Pryce",
+            "Quick","Rake","Raven","Red","River","Rook","Rose","Ruby","Rust","Shadow",
+            "Silver","Slim","South","Stone","Storm","Sun","Swift","Tall","Tar","Timber",
+            "Umber","Up","Vale","West","White","Wild","Winter","Wolf","Yarrow","Yellow"
+        ]
+
+        last_suffix | [
+            "bairn","bard","bend","bird","blade","bow","brook","burn","claw","dale","dash","den","down","end","eye","fell","fern",
+            "field","fire","foot","ford",
+            "gar","gard","gate","glen","good","grave","guard","hand","haven","hearth","helm",
+            "hill","hold","horn","hunter","keep","key","lain","lock","loft","man","mar","march","mark",
+            "mere","mid","moor","nel","pass","peak","port","reach","ridge","rim",
+            "rock","ryn","sand","shade","shield","shore","smith","spire","stone","swan",
+            "thorn","ton","town","trail","vale","var","view","wall","ward","watch",
+            "water","well","wild","wind","wing","wood","worm","wright","wyn"
+        ]
+
+    prefix | pick 1 from last_prefix
+    suffix | pick 1 from last_suffix
+    prefix + suffix
+xx
+
+
+act fantasy_full_name
+    first | fantasy_first_name()
+    last  | fantasy_last_name()
+    first ++ last
+xx

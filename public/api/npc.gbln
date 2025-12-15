@@ -1,0 +1,98 @@
+/// npc.gbln
+/// One NPC per run.
+/// Arrays only. pick 1 only.
+/// No if/elif branching.
+/// Output is line-based for easy parsing in the frontend.
+
+import lib/fantasy_names as fnames
+
+act npc_generator
+    roles | [
+        "Innkeeper","Fence","Town Guard","Healer","Cartwright","Scribe","Bounty Broker","Courier","Smuggler","Apothecary",
+        "Relic Dealer","Local Judge","Gravedigger","River Pilot","Stablehand","Mercenary","Street Prophet","Miner","Barkeep","Scout",
+        "Wandering Bard","Temple Acolyte","Blacksmith","Librarian","Dock Boss","Farmhand","Caravan Leader","Tax Collector","Locksmith",
+        "Collector", "Captain","Sister","Brother","Doctor","Warden","Keeper","Magister","Scout","Marshal","Archivist",
+        "Foreman","Cook","Miller","Smith","Priest","Guide","Hunter","Seamstress","Trader","Watchman"
+    ]
+
+    appearance_a | [
+        "scarred","immaculately groomed","dust-covered","sunburnt","sleep-deprived","mud-splattered",
+        "missing a finger","wearing an old uniform","covered in ink stains","smelling faintly of smoke",
+        "walking with a limp","always glancing around","perfect posture","shaky hands","glittering eyes","bandaged forearm",
+        "hard-eyed","overly friendly","stone-faced","laughing too easily"
+    ]
+
+    appearance_b | [
+        "a dented hat","a cracked monocle","a stitched cloak","a brass badge","a rope belt","a weathered map case",
+        "a bundle of charms","a chipped mug","a worn satchel","a ring of keys","a polished cane","a scarf with strange symbols",
+        "a battered journal","a small music box","a rusted locket","a beaded bracelet","a wax-sealed letter","a broken blade hilt",
+        "a prayer cord","a coil of wire"
+    ]
+
+    personalities | [
+        "cheerfully blunt","carefully polite","sweet but calculating","paranoid and prepared","warmly sarcastic","quietly intense",
+        "nervous and chatty","coldly professional","optimistic to a fault","weary and honest","friendly but evasive","stern and paternal",
+        "clingy and excitable","calm under pressure","bitter but helpful","hyper-curious","suspicious of everyone","unusually compassionate",
+        "proud and stubborn","soft-hearted liar"
+    ]
+
+    quirks | [
+        "never makes eye contact","counts coins twice","speaks in short sentences","laughs at the wrong moments",
+        "refuses to sit with their back to a door","keeps offering tea to everyone","calls everyone boss",
+        "hums when lying","writes everything down","won’t touch iron","insists on nicknames","collects small buttons",
+        "won’t say certain words out loud","apologizes constantly","keeps checking the sky","can’t stop fidgeting",
+        "always underestimates danger","stares too long at hands","asks strange personal questions","keeps pausing mid-sentence"
+    ]
+
+    wants | [
+        "to get out of debt","to find a missing person","to buy protection","to expose a rival","to reclaim stolen property",
+        "to be forgiven","to prove themself","to secure a safe route","to start over somewhere new","to impress someone important",
+        "to hide evidence","to get revenge quietly","to make a deal with the party","to recover a relic","to keep a promise",
+        "to win an election","to sabotage a shipment","to break a curse","to earn a title","to disappear"
+    ]
+
+    secrets | [
+        "they’re working for a rival faction","they caused the last disaster here","they’re using a false name",
+        "they’re smuggling something dangerous","they’re under compulsion","they’re an informant",
+        "they stole the thing everyone is looking for","they’re related to the villain","they’re planning to flee tonight",
+        "they’re hiding an illness","they’re a deserter","they’re laundering money","they’re blackmailing a local leader",
+        "they’re hunting someone in secret","they’re pretending to be harmless","they’ve already met the party before"
+    ]
+
+    hooks | [
+        "They offer a job that sounds easy — and pays too well.",
+        "They warn you not to take the main road, but won’t say why.",
+        "They claim to have a map — but only show it after dark.",
+        "They beg you to deliver a sealed package without opening it.",
+        "They insist someone is impersonating them, and need witnesses.",
+        "They are being followed, and they know it.",
+        "They sell a sure thing that immediately causes trouble.",
+        "They offer information, but demand a favor first.",
+        "They ask for protection during a meeting they won’t explain.",
+        "They quietly admit they made a mistake — and now people will die."
+    ]
+
+    /// Build ONE npc (no arrays in output; just lines)
+    first | fnames::fantasy_first_name()
+    last  | fnames::fantasy_last_name()
+
+    role  | pick 1 from roles
+    a1    | pick 1 from appearance_a
+    a2    | pick 1 from appearance_b
+    personality | pick 1 from personalities
+    quirk | pick 1 from quirks
+    want  | pick 1 from wants
+    secret | pick 1 from secrets
+    hook  | pick 1 from hooks
+
+    say "name:" ++ first ++ last
+    say "role:" ++ role
+    say "appearance:" ++ a1 ++ "with" ++ a2
+    say "personality:" ++ personality
+    say "quirk:" ++ quirk
+    say "want:" ++ want
+    say "secret:" ++ secret
+    say "hook:" ++ hook
+xx
+
+npc_generator()
