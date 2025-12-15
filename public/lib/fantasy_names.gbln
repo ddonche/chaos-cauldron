@@ -2,57 +2,237 @@
 /// Shared fantasy name lists for NPC + Character.
 /// IMPORTANT: no top-level execution in this file.
 
+
+/// --------------------
+/// FIRST NAMES
+/// --------------------
+
 act fantasy_first_name
-    /// Alphabetized syllables only (name-safe)
-    syllables | [
-        "ael","aer","ag","al","am","an","ap","ar","as","at","aw","be","bed","bel","bem","ben","bo","bog","bol","bon","bos","bra",
-        "bre","bro","bru","ca","cad","cag","cal","cam","can","car","cas","cat","caw","cax","cay","ce","ced","cel","cor","da","del","dor",
-        "el","eli","em","fa","fre","gar","hal","hol","ila","ir","ja","jun","ka","kel",
-        "la","li","lor","ly","mae","mal","mar","mel","na","ne","nor","ody","or","per",
-        "pet","ra","re","ri","rin","ro","ru","sa","sel","sil","sor","ta","th","to","va","ve","wr"
+    /// Consonant-ish / name-start syllables
+    syllables_n | [
+        "b",
+        "bac","bad","baf","bag","bah","bak","bal","bam","ban","bap","bar","barn","bas","bast","bat","bath","bav","baw","bax",
+        "bec","bed","bef","beg","beh","bek","bel","bem","ben","bep","ber","bern","bes","best","bet","beth","bev","bew","bex","bh",
+        "bic","bid","bif","big","bih","bik","bil","bim","bin","bip","bir","birn","bis","bist","bit","bith","biv","biw","bix","bl",
+        "boc","bod","bof","bog","boh","bek","bol","bom","bon","bop","bor","born","bos","bost","bot","both","bov","bow","box","br",
+        "buc","bud","buf","bug","buh","buk","bul","bum","bun","bup","bur","burn","bus","bust","but","buth","buv","buw","bux",
+        "c",
+        "cac","cad","caf","cag","cah","cak","cal","cam","can","cap","car","carn","cas","cast","cat","cath","cav","caw","cax",
+        "cec","ced","cef","ceg","ceh","cek","cel","cem","cen","cep","cer","cern","ces","cest","cet","ceth","cev","cew","cex","ch","chr",
+        "cic","cid","cif","cig","cih","cik","cil","cim","cin","cip","cir","cirn","cis","cist","cit","cith","civ","ciw","cix","cl",
+        "coc","cod","cof","cog","coh","cok","col","com","con","cop","cor","corn","cos","cost","cot","coth","cov","cow","cox","cr",
+        "cuc","cud","cuf","cug","cuh","cuk","cul","cum","cun","cup","cur","curn","cus","cust","cut","cuth","cuv","cuw","cux",
+        "d",
+        "dac","dad","daf","dag","dah","dak","dal","dam","dan","dap","dar","darn","das","dast","dat","dath","dav","daw","dax",
+        "dec","ded","def","deg","deh","dek","del","dem","den","dep","der","dern","des","dest","det","deth","dev","dew","dex","dh",
+        "dic","did","dif","dig","dih","dik","dil","dim","din","dip","dir","dirn","dis","dist","dit","dith","div","diw","dix",
+        "doc","dod","dof","dog","doh","dok","dol","dom","don","dop","dor","dorn","dos","dost","dot","doth","dov","dow","dox","dr",
+        "duc","dud","duf","dug","duh","duk","dul","dum","dun","dup","dur","durn","dus","dust","dut","duth","duv","duw","dux",
+        "f",
+        "fac","fad","faf","fag","fah","fak","fal","fam","fan","fap","far","farn","fas","fast","fat","fath","fav","faw","fax",
+        "fec","fed","fef","feg","feh","fek","fel","fem","fen","fep","fer","fern","fes","fest","fet","feth","fev","few","fex","fh",
+        "fic","fid","fif","fig","fih","fik","fil","fim","fin","fip","fir","firn","fis","fist","fit","fith","fiv","fiw","fix","fl",
+        "foc","fod","fof","fog","foh","fok","fol","fom","fon","fop","for","forn","fos","fost","fot","foth","fov","fow","fox","fr",
+        "fuc","fud","fuf","fug","fuh","fuk","ful","fum","fun","fup","fur","furn","fus","fust","fut","futh","fuv","fuw","fux",
+        "g",
+        "gac","gad","gaf","gag","gah","gak","gal","gam","gan","gap","gar","garn","gas","gast","gat","gath","gav","gaw","gax",
+        "gec","ged","gef","geg","geh","gek","gel","gem","gen","gep","ger","gern","ges","gest","get","geth","gev","gew","gex","gh","ghr",
+        "gic","gid","gif","gig","gih","gik","gil","gim","gin","gip","gir","girn","gis","gist","git","gith","giv","giw","gix","gl",
+        "goc","god","gof","gog","goh","gok","gol","gom","gon","gop","gor","gorn","gos","gost","got","goth","gov","gow","gox","gr",
+        "guc","gud","guf","gug","guh","guk","gul","gum","gun","gup","gur","gurn","gus","gust","gut","guth","guv","guw","gux",
+        "h",
+        "hac","had","haf","hag","hah","hak","hal","ham","han","hap","har","harn","has","hast","hat","hath","hav","haw","hax",
+        "hec","hed","hef","heg","heh","hek","hel","hem","hen","hep","her","hern","hes","hest","het","heth","hev","hew","hex",
+        "hic","hid","hif","hig","hih","hik","hil","him","hin","hip","hir","hirn","his","hist","hit","hith","hiv","hiw","hix",
+        "hoc","hod","hof","hog","hoh","hok","hol","hom","hon","hop","hor","horn","hos","host","hot","hoth","hov","how","hox",
+        "huc","hud","huf","hug","huh","huk","hul","hum","hun","hup","hur","hurn","hus","hust","hut","huth","huv","huw","hux",
+        "j",
+        "jac","jad","jaf","jag","jah","jak","jal","jam","jan","jap","jar","jarn","jas","jast","jat","jath","jav","jaw","jax",
+        "jec","jed","jef","jeg","jeh","jek","jel","jem","jen","jep","jer","jern","jes","jest","jet","jeth","jev","jew","jex",
+        "jic","jid","jif","jig","jih","jik","jil","jim","jin","jip","jir","jirn","jis","jist","jit","jith","jiv","jiw","jix",
+        "joc","jod","jof","jog","joh","jok","jol","jom","jon","jop","jor","jorn","jos","jost","jot","joth","jov","jow","jox","jr",
+        "juc","jud","juf","jug","juh","juk","jul","jum","jun","jup","jur","jurn","jus","just","jut","juth","juv","juw","jux",
+        "k",
+        "kac","kad","kaf","kag","kah","kak","kal","kam","kan","kap","kar","karn","kas","kast","kat","kath","kav","kaw","kax",
+        "kec","ked","kef","keg","keh","kek","kel","kem","ken","kep","ker","kern","kes","kest","ket","keth","kev","kew","kex","kh",
+        "kic","kid","kif","kig","kih","kik","kil","kim","kin","kip","kir","kirn","kis","kist","kit","kith","kiv","kiw","kix","kl",
+        "koc","kod","kof","kog","koh","kok","kol","kom","kon","kop","kor","korn","kos","kost","kot","koth","kov","kow","kox","kr",
+        "kuc","kud","kuf","kug","kuh","kuk","kul","kum","kun","kup","kur","kurn","kus","kust","kut","kuth","kuv","kuw","kux",
+        "l",
+        "lac","lad","laf","lag","lah","lak","lal","lam","lan","lap","lar","larn","las","last","lat","lath","lav","law","lax",
+        "lec","led","lef","leg","leh","lek","lel","lem","len","lep","ler","lern","les","lest","let","leth","lev","lew","lex","lh",
+        "lic","lid","lif","lig","lih","lik","lil","lim","lin","lip","lir","lirn","lis","list","lit","lith","liv","liw","lix",
+        "loc","lod","lof","log","loh","lok","lol","lom","lon","lop","lor","lorn","los","lost","lot","loth","lov","low","lox","lr",
+        "luc","lud","luf","lug","luh","luk","lul","lum","lun","lup","lur","lurn","lus","lust","lut","luth","luv","luw","lux",
+        "m",
+        "mac","mad","maf","mag","mah","mak","mal","mam","man","map","mar","marn","mas","mast","mat","math","mav","maw","max",
+        "mec","med","mef","meg","meh","mek","mel","mem","men","mep","mer","mern","mes","mest","met","meth","mev","mew","mex","mh",
+        "mic","mid","mif","mig","mih","mik","mil","mim","min","mip","mir","mirn","mis","mist","mit","mith","miv","miw","mix",
+        "moc","mod","mof","mog","moh","mok","mol","mom","mon","mop","mor","morn","mos","most","mot","moth","mov","mow","mox","mr",
+        "muc","mud","muf","mug","muh","muk","mul","mum","mun","mup","mur","murn","mus","must","mut","muth","muv","muw","mux",
+        "n",
+        "nac","nad","naf","nag","nah","nak","nal","nam","nan","nap","nar","narn","nas","nast","nat","nath","nav","naw","nax",
+        "nec","ned","nef","neg","neh","nek","nel","nem","nen","nep","ner","nern","nes","nest","net","neth","nev","new","nex","nh",
+        "nic","nid","nif","nig","nih","nik","nil","nim","nin","nip","nir","nirn","nis","nist","nit","nith","niv","niw","nix",
+        "noc","nod","nof","nog","noh","nok","nol","nom","non","nop","nor","norn","nos","nost","not","noth","nov","now","nox","nr",
+        "nuc","nud","nuf","nug","nuh","nuk","nul","num","nun","nup","nur","nurn","nus","nust","nut","nuth","nuv","nuw","nux",
+        "p",
+        "pac","pad","paf","pag","pah","pak","pal","pam","pan","pap","par","parn","pas","past","pat","path","pav","paw","pax",
+        "pec","ped","pef","peg","peh","pek","pel","pem","pen","pep","per","pern","pes","pest","pet","peth","pev","pew","pex","ph","phr",
+        "pic","pid","pif","pig","pih","pik","pil","pim","pin","pip","pir","pirn","pis","pist","pit","pith","piv","piw","pix","pl",
+        "poc","pod","pof","pog","poh","pok","pol","pom","pon","pop","por","porn","pos","post","pot","poth","pov","pow","pox","pr",
+        "puc","pud","puf","pug","puh","puk","pul","pum","pun","pup","pur","purn","pus","pust","put","puth","puv","puw","pux",
+        "q",
+        "qac","qad","qaf","qag","qah","qak","qal","qam","qan","qap","qar","qarn","qas","qast","qat","qath","qav","qaw","qax",
+        "qec","qed","qef","qeg","qeh","qek","qel","qem","qen","qep","qer","qern","qes","qest","qet","qeth","qev","qew","qex","qh",
+        "qic","qid","qif","qig","qih","qik","qil","qim","qin","qip","qir","qirn","qis","qist","qit","qith","qiv","qiw","qix",
+        "qoc","qod","qof","qog","qoh","qok","qol","qom","qon","qop","qor","qorn","qos","qost","qot","qoth","qov","qow","qox","qr",
+        "quc","qud","quf","qug","quh","quk","qul","qum","qun","qup","qur","qurn","qus","qust","qut","quth","quv","quw","qux",
+        "r",
+        "rac","rad","raf","rag","rah","rak","ral","ram","ran","rap","rar","rarn","ras","rast","rat","rath","rav","raw","rax",
+        "rec","red","ref","reg","reh","rek","rel","rem","ren","rep","rer","rern","res","rest","ret","reth","rev","rew","rex","rh",
+        "ric","rid","rif","rig","rih","rik","ril","rim","rin","rip","rir","rirn","ris","rist","rit","rith","riv","riw","rix",
+        "roc","rod","rof","rog","roh","rok","rol","rom","ron","rop","ror","rorn","ros","rost","rot","roth","rov","row","rox","rr",
+        "ruc","rud","ruf","rug","ruh","ruk","rul","rum","run","rup","rur","rurn","rus","rust","rut","ruth","ruv","ruw","rux",
+        
+        "s",
+        "sac","sad","saf","sag","sah","sak","sal","sam","san","sap","sar","sarn","sas","sast","sat","sath","sav","saw","sax","sc","scr",
+        "sec","sed","sef","seg","seh","sek","sel","sem","sen","sep","ser","sern","ses","sest","set","seth","sev","sew","sex","sh","shr",
+        "sic","sid","sif","sig","sih","sik","sil","sim","sin","sip","sir","sirn","sis","sist","sit","sith","siv","siw","six","sk","skr","sl","sn",
+        "soc","sod","sof","sog","soh","sok","sol","som","son","sop","sor","sorn","sos","sost","sot","soth","sov","sow","sox","st","str",
+        "suc","sud","suf","sug","suh","suk","sul","sum","sun","sup","sur","surn","sus","sust","sut","suth","suv","suw","sux",
+        
+        "t",
+        "tac","tad","taf","tag","tah","tak","tal","tam","tan","tap","tar","tarn","tas","tast","tat","tath","tav","taw","tax",
+        "tec","ted","tef","teg","teh","tek","tel","tem","ten","tep","ter","tern","tes","test","tet","teth","tev","tew","tex","th","thr",
+        "tic","tid","tif","tig","tih","tik","til","tim","tin","tip","tir","tirn","tis","tist","tit","tith","tiv","tiw","tix",
+        "toc","tod","tof","tog","toh","tok","tol","tom","ton","top","tor","torn","tos","tost","tot","toth","tov","tow","tox","tr",
+        "tuc","tud","tuf","tug","tuh","tuk","tul","tum","tun","tup","tur","turn","tus","tust","tut","tuth","tuv","tuw","tux",
+        
+        "v",
+        "vac","vad","vaf","vag","vah","vak","val","vam","van","vap","var","varn","vas","vast","vat","vath","vav","vaw","vax",
+        "vec","ved","vef","veg","veh","vek","vel","vem","ven","vep","ver","vern","ves","vest","vet","veth","vev","vew","vex","vh",
+        "vic","vid","vif","vig","vih","vik","vil","vim","vin","vip","vir","virn","vis","vist","vit","vith","viv","viw","vix",
+        "voc","vod","vof","vog","voh","vok","vol","vom","von","vop","vor","vorn","vos","vost","vot","voth","vov","vow","vox","vr",
+        "vuc","vud","vuf","vug","vuh","vuk","vul","vum","vun","vup","vur","vurn","vus","vust","vut","vuth","vuv","vuw","vux",
+        "w",
+        "wac","wad","waf","wag","wah","wak","wal","wam","wan","wap","war","warn","was","wast","wat","wath","wav","waw","wax",
+        "wec","wed","wef","weg","weh","wek","wel","wem","wen","wep","wer","wern","wes","west","wet","weth","wev","wew","wex","wh",
+        "wic","wid","wif","wig","wih","wik","wil","wim","win","wip","wir","wirn","wis","wist","wit","with","wiv","wiw","wix",
+        "woc","wod","wof","wog","woh","wok","wol","wom","won","wop","wor","worn","wos","wost","wot","woth","wov","wow","wox","wr",
+        "wuc","wud","wuf","wug","wuh","wuk","wul","wum","wun","wup","wur","wurn","wus","wust","wut","wuth","wuv","wuw","wux",
+        "x",
+        "xac","xad","xaf","xag","xah","xak","xal","xam","xan","xap","xar","xarn","xas","xast","xat","xath","xav","xaw","xax",
+        "xec","xed","xef","xeg","xeh","xek","xel","xem","xen","xep","xer","xern","xes","xest","xet","xeth","xev","xew","xex",
+        "xic","xid","xif","xig","xih","xik","xil","xim","xin","xip","xir","xirn","xis","xist","xit","xith","xiv","xiw","xix",
+        "xoc","xod","xof","xog","xoh","xok","xol","xom","xon","xop","xor","xorn","xos","xost","xot","xoth","xov","xow","xox","xr",
+        "xuc","xud","xuf","xug","xuh","xuk","xul","xum","xun","xup","xur","xurn","xus","xust","xut","xuth","xuv","xuw","xux",
+        "z",
+        "zac","zad","zaf","zag","zah","zak","zal","zam","zan","zap","zar","zarn","zas","zast","zat","zath","zav","zaw","zax",
+        "zec","zed","zef","zeg","zeh","zek","zel","zem","zen","zep","zer","zern","zes","zest","zet","zeth","zev","zew","zex","zh",
+        "zic","zid","zif","zig","zih","zik","zil","zim","zin","zip","zir","zirn","zis","zist","zit","zith","ziv","ziw","zix",
+        "zoc","zod","zof","zog","zoh","zok","zol","zom","zon","zop","zor","zorn","zos","zost","zot","zoth","zov","zow","zox","zr",
+        "zuc","zud","zuf","zug","zuh","zuk","zul","zum","zun","zup","zur","zurn","zus","zust","zut","zuth","zuv","zuw","zux",
     ]
 
-    /// Decide how many syllables (weighted toward 2)
-    count | pick 1 from [1,2,2,3]
+    /// Vowel-heavy syllables
+    syllables_v | [
+        "ael","aer","ad","ag","ak","al","am","an","ap","ar","as","at","av","aw","ax","az",
+        "ed","ek","el","em","en","ep","er","es","et","ev","ew","ex","ez",
+        "id","ik","il","im","in","ip","ir","is","it","iv","ix","iz",
+        "od","ok","ol","om","op","or","os","ot","ov","ow","ox","oz",
+        "ud","uk","ul","um","un","up","ur","us","ut","uv","ux","uz",
+        "y"
+    ]
 
-    parts | pick {count} from syllables
-    name  | :pack(parts)
+    /// Smooth nucleus (forces flow)
+    smooth | ["a","ae","e","i","o","u","y"]
 
-    name.title
+    /// Shape selection (weighted toward 2–3)
+    shape | pick 1 from ["one","two","two","three","four","five"]
+
+    if shape == "one"
+        a | pick 1 from syllables_n
+        b | pick 1 from smooth
+        title(a + b)
+
+    elif shape == "two"
+        a | pick 1 from syllables_n
+        v | pick 1 from smooth
+        title(a + v)
+
+    elif shape == "three"
+        a | pick 1 from syllables_v
+        b | pick 1 from smooth
+        c | pick 1 from syllables_n
+        title(a + b + c)
+
+    elif shape == "four"
+        a | pick 1 from syllables_v
+        b | pick 1 from smooth
+        c | pick 1 from syllables_n
+        d | pick 1 from syllables_v
+        title(a + b + c + d)
+
+    else
+        a | pick 1 from syllables_n
+        v | pick 1 from smooth
+        b | pick 1 from syllables_n
+        title(a + v + b)
+    end
 xx
 
+
+/// --------------------
+/// LAST NAMES (SURNAME OR EPITHET)
+/// --------------------
 
 act fantasy_last_name
+    /// Normal surname parts
     last_prefix | [
-            "Air","All","Amber","Ar","Arrow","Ash","Barter","Bear","Black","Blue","Briar","Bronze","Brown","Car","Cart","Cloud",
-            "Cold","Crow","Dark","Dim","Dusk","Dust","Eagle","East","Ember","Fair","Falcon","Fall","Far","Frost",
-            "Glad","Gold","Grave","Gray","Great","Green","Grey","Grim","Hall","Hallow","Hard","Hare","Hawk","Hearth",
-            "High","Hill","Ice","Iron","Jade","Kestrel","King","Knight","Light",
-            "Lock","Low","Mourn","Nice","Nor","North","Oak","Oaken","Pryce",
-            "Quick","Rake","Raven","Red","River","Rook","Rose","Ruby","Rust","Shadow",
-            "Silver","Slim","South","Stone","Storm","Sun","Swift","Tall","Tar","Timber",
-            "Umber","Up","Vale","West","White","Wild","Winter","Wolf","Yarrow","Yellow"
-        ]
+        "Air","All","Amber","Ar","Arrow","Ash","Barter","Bear","Black","Blue","Briar","Bronze","Brown","Car","Cart","Cloud",
+        "Cold","Crow","Dark","Dim","Dusk","Dust","Eagle","East","Ember","Fair","Falcon","Fall","Far","Frost",
+        "Glad","Gold","Grave","Gray","Great","Green","Grey","Grim","Hall","Hallow","Hard","Hare","Hawk","Hearth",
+        "High","Hill","Ice","Iron","Jade","Kestrel","King","Knight","Light",
+        "Lock","Low","Mourn","Nice","Nor","North","Oak","Oaken","Pryce",
+        "Quick","Rake","Raven","Red","River","Rook","Rose","Ruby","Rust","Shadow",
+        "Silver","Slim","South","Stone","Storm","Sun","Swift","Tall","Tar","Timber",
+        "Umber","Up","Vale","West","White","Wild","Winter","Wolf","Yarrow","Yellow"
+    ]
 
-        last_suffix | [
-            "bairn","bard","bend","bird","blade","bow","brook","burn","claw","dale","dash","den","down","end","eye","fell","fern",
-            "field","fire","foot","ford",
-            "gar","gard","gate","glen","good","grave","guard","hand","haven","hearth","helm",
-            "hill","hold","horn","hunter","keep","key","lain","lock","loft","man","mar","march","mark",
-            "mere","mid","moor","nel","pass","peak","port","reach","ridge","rim",
-            "rock","ryn","sand","shade","shield","shore","smith","spire","stone","swan",
-            "thorn","ton","town","trail","vale","var","view","wall","ward","watch",
-            "water","well","wild","wind","wing","wood","worm","wright","wyn"
-        ]
+    last_suffix | [
+        "bairn","bard","bend","bird","blade","bow","brook","burn","claw","dale","dash","den","down","end","eye","fell","fern",
+        "field","fire","foot","ford",
+        "gar","gard","gate","glen","good","grave","guard","hand","haven","hearth","helm",
+        "hill","hold","horn","hunter","keep","key","lain","lock","loft","man","mar","march","mark",
+        "mere","mid","moor","nel","pass","peak","port","reach","ridge","rim",
+        "rock","ryn","sand","shade","shield","shore","smith","spire","stone","swan",
+        "thorn","ton","town","trail","vale","var","view","wall","ward","watch",
+        "water","well","wild","wind","wing","wood","worm","wright","wyn"
+    ]
 
-    prefix | pick 1 from last_prefix
-    suffix | pick 1 from last_suffix
-    prefix + suffix
+    /// Epithets (treated as last names)
+    ep | [
+        "Bold","White","Black","Red","Grey","Silent","Swift","Clever","Grim",
+        "Merciful","Cruel","Ashen","Ironhearted","Stormborn","Oathbound",
+        "Fox","Wolf","Raven","Stag","Unbroken"
+    ]
+
+    /// Weighting: mostly surnames, sometimes epithet
+    kind | pick 1 from ["surname","surname","epithet"]
+
+    if kind == "epithet"
+        "the" ++ (pick 1 from ep)
+    else
+        (pick 1 from last_prefix) + (pick 1 from last_suffix)
+    end
 xx
 
 
+/// --------------------
+/// FULL NAME
+/// --------------------
+
 act fantasy_full_name
-    first | fantasy_first_name()
-    last  | fantasy_last_name()
-    first ++ last
+    fantasy_first_name() ++ fantasy_last_name()
 xx
