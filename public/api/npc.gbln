@@ -5,37 +5,9 @@
 /// Output is line-based for easy parsing in the frontend.
 
 import lib/fantasy_names as fnames
+import lib/occupations as occ
 
 act npc_generator
-    roles | ["Accountant","Acrobat","Actor","Alchemist","Ambassador","Apothecary","Archer","Architect",
-    "Archivist","Armorer","Arrowsmith","Artisan","Artist",
-    "Assassin","Auctioneer","Bailiff","Baker","Banker","Barber","Barkeep","Barrister","Beekeeper","Beggar","Bellfounder",
-    "Blacksmith","Bladesmith","Bonesetter","Bookbinder","Bounty Broker",
-    "Bounty Hunter","Bowman","Bowyer","Brand Inspector","Brazier","Brewer","Brick Layer","Brother","Builder","Butcher","Butler",
-    "Captain","Caravaner","Caravan Leader","Carpenter","Carter","Cartwright","Catchpole",
-    "Census Taker","Chambermaid","Chandler","Cheesemonger","Circus Performer",
-    "Clergy","Clerk","Clockmaker","Cobbler","Collector","Con Artist","Constable","Cook","Coppersmith","Cordwainer","Courier","Courtesan",
-    "Crier","Cutler","Dancer","Diplomat","Doctor","Dock Boss","Draper","Embroiderer","Engraver","Exchequer","Executioner",
-    "Farmhand","Farrier","Fence","Fisherman","Fishmonger","Fletcher","Foreman","Fuller",
-    "Gaoler","Gardener","Gem Cutter","Glover","Goldsmith","Governor","Gravedigger","Grocer","Groom","Guard","Guide",
-    "Haberdasher","Harper","Hatter","Hayward","Healer","Herald","Herbalist","Hermit","Horner","Hostler",
-    "Hunter","Innkeeper","Inquisitor","Interpreter","Jailer","Jester","Jeweler","Keeper","Knight","Launderer","Laborer",
-    "Librarian","Local Judge","Locksmith","Lookout","Lumberjack","Lutemaker","Magician",
-    "Magister","Magistrate","Mapmaker","Marbler","Marshal","Mercenary",
-    "Master of the Revels","Mercer","Merchant","Messenger","Milkmaid","Miller","Miner",
-    "Minstrel","Minter","Nailsmith","Navigator","Needler","Nomad","Oracle",
-    "Page","Painter","Paladin","Philosopher","Physician","Pirate",
-    "Playwright","Plowman",
-    "Poet","Porter","Potter","Priest","Privateer","Rat Catcher","Reeve",
-    "Relic Dealer","Ringleader","River Pilot","Saddler","Sage","Sail Maker","Sailor","Sawbones",
-    "Scout","Scout","Scribe","Scrivener","Sculptor","Seamstress","Sentry","Shepherd","Sheriff",
-    "Shipwright","Singer","Sister","Skinner","Slaver","Smith",
-    "Smuggler","Soapmaker","Soothsayer","Solicitor","Spy","Squire",
-    "Stablehand","Stonemason","Street Prophet","Summoner","Surgeon","Swindler","Swineherd","Tailor","Tanner","Tax Collector",
-    "Teamster","Temple Acolyte","Thief","Tile Maker","Tinkerer","Tinner","Town Guard","Trader",
-    "Tracker","Trapper","Troubadour","Tutor","Undertaker","Vinter",
-    "Wandering Bard","Warden","Watchman","Watch Captain","Weaver","Wheelwright","Witch",]
-
     appearance_a | [
         "scarred","immaculately groomed","dust-covered","sunburnt","sleep-deprived","mud-splattered",
         "missing a finger","wearing an old uniform","covered in ink stains","smelling faintly of smoke",
@@ -97,7 +69,7 @@ act npc_generator
     first | fnames::fantasy_first_name()
     last  | fnames::fantasy_last_name()
 
-    role  | pick 1 from roles
+    role  | occ::fantasy_occupations()
     a1    | pick 1 from appearance_a
     a2    | pick 1 from appearance_b
     personality | pick 1 from personalities
