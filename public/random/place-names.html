@@ -1,34 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
   <title>Place Name Generator – D&amp;D &amp; RPG Town, City, Region Names</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Generate 20 random place names for fantasy towns, cities, regions, mountains, and realms. Great for D&amp;D, Pathfinder, and tabletop RPG worldbuilding.">
-  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
   <!-- Header / Nav (same as index, absolute paths) -->
-  <header class="cc-header">
-    <div class="cc-header-inner">
-      <a href="/" class="cc-brand-link" aria-label="Chaos Cauldron home">
-        <div class="cc-brand">
-          <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
-          <div class="cc-brand-text">
-            <h1 class="cc-site-title">Chaos Cauldron</h1>
-            <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
-          </div>
-        </div>
-      </a>
-
-      <nav class="cc-nav">
-        <a href="/#random-generators" class="cc-nav-link">Random</a>
-        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
-        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
-      </nav>
-    </div>
-  </header>
+  <div id="cc-header"></div>
 
   <!-- Main content -->
   <main class="cc-main">
@@ -116,20 +95,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="cc-footer">
-    <div class="cc-footer-inner">
-      <div class="cc-footer-left">
-        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
-        <span> · </span>
-        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
-      </div>
-      <div class="cc-footer-right">
-        <a href="#" class="cc-footer-link">About</a>
-        <a href="#" class="cc-footer-link">Suggest</a>
-        <a href="#" class="cc-footer-link">API</a>
-      </div>
-    </div>
-  </footer>
+  <div id="cc-footer"></div>
 
   <!-- Page JS: calls Goblin backend, no randomness here -->
   <script>
@@ -191,6 +157,19 @@
         }
       });
     })();
+  </script>
+  <script>
+    fetch('/partials/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('cc-header').innerHTML = html;
+      });
+
+    fetch('/partials/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('cc-footer').innerHTML = html;
+      });
   </script>
 
 </body>
