@@ -1,0 +1,85 @@
+act pirate_ipsum_sentence
+    pirate_words | [
+        "anchor ","arrow ","axe ",
+        
+        "barnacle ","barrel ","bastard ","bay ","beast ","bilge ","black ","blade ","blood ","boarding ","boat ","bones ","booze ","booty ","bosun ","bottle ","bounty ","bow ","brawl ","brig ","brine ","broadside ","buccaneer ","bullet ",
+        
+        "cannonball ","cannon ","cap'n ","captain ","cargo ","cask ","chain ","chase ","chest ","chum ","coast ","coat ","cockpit ","coin ","compass ","corsair ","course ","crew ","crow's nest ","culverin ","curse ","cutlass ","cutthroat ",
+        
+        "dagger ","danger ","Davy Jones ","dead ","deck ","devil ","dog ","doubloon ","duel ","dusk ",
+        
+        "east ","enemy ",
+        
+        "fight ","fire ","flag ","flintlock ","flogging ","fog ","foe ","fortune ","freebooter ",
+        
+        "galley ","galleon ","gangplank ","grog ","gunpowder ","gun ",
+        
+        "hang ","harbor ","harpoon ","haul ","helm ","hogshead ","hold ","horizon ","hull ",
+        
+        "island ",
+        
+        "jack ","jewel ","Jolly Roger ","jug ",
+        
+        "keel ","keelhaul ","knife ","knot ","kraken ",
+        
+        "lagoon ","landlubber ","lash ","loot ","lubber ",
+        
+        "mainmast ","map ","maroon ","mast ","mate ","merchant ","musket ","mutiny ",
+        
+        "navy ","north ",
+        
+        "oak ","oar ","ocean ",
+        
+        "parley ","parrot ","patch ","peg leg ","pillage ","pirate ","pistol ","plank ","plunder ","port ","powder ","privateer ",
+        
+        "quartermaster ","quarters ",
+        
+        "raid ","rapier ","rat ","reef ","riggin' ","rigging ","rope ","rudder ","rum ","run ",
+        
+        "saber ","sail ","sailor ","salt ","saltwater ","scallywag ","schooner ","scourge ","scurvy ","sea ","seadog ","shark ","ship ","shore ","shot ","silver ","skull ","sloop ","south ","Spanish ","spar ","splice ","squall ","stern ","storm ","swashbuckler ","swell ","sword ",
+        
+        "tar ","tattoo ","tavern ","tide ","timber ","treasure ","tropic ",
+        
+        "vessel ","voyage ",
+        
+        "walk ","waters ","wave ","wench ","west ","whale ","wind ","wreck "
+    ]
+
+    commons | ["a ", "me ", "I ", "of ", "with ", "and ", "the ", "be ", "do ", "it ", "in ", "out ", "up ", "down ", "over ", "under ", "beyond ", "yer ", "ye ", "we ", "us ", "to "]
+    
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+
+    rest_words | pick {word_count} from pirate_words with dups
+    common_words | pick {word_count2} from commons with dups
+
+    all_words | rest_words + common_words
+
+    shuffled_up | shuffle(all_words)
+    
+    first | pick 1 from pirate_words
+    first_titled | title(first)
+    
+    final | first_titled + " " + :pack(shuffled_up)
+    final.trim + ". "
+xx
+
+act pirate_ipsum_paragraph
+    sentence_count | pick 1 from 3...7
+    sentences | []
+    repeat sentence_count
+        s | pirate_ipsum_sentence()
+        put_last!(sentences, s)
+    xx
+    :pack(sentences)
+xx
+
+act pirate_ipsum
+    para_count | pick 1 from 2...4
+    repeat para_count
+        say pirate_ipsum_paragraph()
+        say ""
+    xx
+xx
+
+pirate_ipsum()

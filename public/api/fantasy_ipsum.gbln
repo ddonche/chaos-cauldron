@@ -1,48 +1,93 @@
 act fantasy_ipsum_sentence
-    fi_words | [
-        "abyss ","acolyte ","altar ","amulet ","ancient ","angel ","arcane ","archmage ","armor ","arrow ",
-        "artifact ","awakened ","axe ","banner ","barrow ","bastion ","battle ","beast ","blade ","blessed ",
-        "blessing ","blood ","bond ","book ","bound ","bow ","bridge ","broken ","burning ","cairn ",
-        "castle ","cathedral ","celestial ","chalice ","chamber ","chosen ","citadel ","claw ","clan ","covenant ",
-        "crown ","crypt ","crystal ","curse ","cursed ","dagger ","daemon ","dark ","dawn ","deity ",
-        "demon ","destiny ","divine ","domain ","doom ","dragon ","drake ","druid ","dusk ","dwarf ",
-        "eclipse ","elder ","eldritch ","elf ","elixir ","ember ","empire ","enchanted ","enchantment ","essence ",
-        "eternal ","exile ","fabled ","fallen ","fang ","fate ","fey ","fire ","flame ","flesh ",
-        "forbidden ","forgotten ","forge ","fortress ","fragment ","frozen ","gate ","ghost ","giant ","gilded ",
-        "globe ","goblin ","god ","goddess ","golden ","grave ","grim ","grove ","guardian ","guild ",
-        "hallowed ","hammer ","havoc ","heart ","heir ","helm ","hero ","hidden ","hoard ","holy ",
-        "horn ","host ","idol ","immortal ","incantation ","iron ","jewel ","journey ","keep ","key ",
-        "king ","kingdom ","knight ","lance ","legend ","legendary ","legion ","lich ","light ","lord ",
-        "lore ","lost ","mage ","magic ","maiden ","mantle ","mark ","martyr ","master ","mead ",
-        "mercy ","might ","mirror ","moon ","mountain ","mystic ","northern ","oath ","obsidian ","omen ",
-        "oracle ","orb ","order ","pact ","paladin ","path ","peak ","phantom ","pillar ","pit ",
-        "plague ","portal ","power ","prayer ","priest ","prince ","princess ","prophecy ","prophet ","pyre ",
-        "queen ","quest ","radiant ","rage ","ranger ","raven ","realm ","relic ","rest ","rift ",
-        "ring ","rite ","ritual ","rogue ","ruin ","runed ","rune ","sacred ","sacrifice ","sage ",
-        "sanctum ","scepter ","scroll ","seal ","secret ","seer ","sentinel ","serpent ","servant ","shadow ",
-        "shard ","shield ","shrine ","sight ","sigil ","silver ","sister ","skull ","slayer ","solemn ",
-        "song ","sorcerer ","soul ","southern ","sovereign ","spear ","spectral ","spell ","spirit ","staff ",
-        "star ","steel ","stone ","storm ","sunlit ","sun ","sword ","tale ","temple ","throne ",
-        "tomb ","torch ","tower ","treaty ","trial ","tribe ","trinity ","truth ","twilight ","undead ",
-        "vale ","vampire ","vault ","veil ","vessel ","vigil ","vision ","void ","vow ","wall ",
-        "wandering ","ward ","warden ","warrior ","watch ","weapon ","whisper ","wild ","winter ","witch ",
-        "wizard ","wolf ","wonder ","word ","wound ","woven ","wraith ","wrath ","wyrm ","zenith "
-    ]
+	fi_words | [
+	    "abyss ","acolyte ","adventure ","ale ","altar ","amulet ","ancient ","angel ","arcane ","archmage ","armor ","arrow ",
+	    "artifact ","awakened ","axe ",
 
-    commons | ["a ", "I ", "of ", "with ", "and ", "thee ", "be ", "do ", "it ", "in ", "out ", "up ", "down ", "over ", "under ",
-    			"beyond ", "yore ", "thou ", "art ", "ye ", "we ", "us "]
+	    "banner ","bannerman ","banish ","bard ","baron ","baroness ","barrow ","bastion ","battle ","bazaar ","beast ","bishop ",
+	    "blacksmith ","blade ","blessed ",
+	    "blessing ","blood ","bolt ","bond ","book ","bound ","bow ","bridge ","broken ","burning ",
+
+	    "cairn ",
+	    "castle ","cathedral ","celestial ","chalice ","chamber ","chosen ","citadel ","claw ","clan ","cleric ","coin ","copper ",
+	    "countess ","covenant ","cross ","crossbow ",
+	    "crown ","crypt ","crystal ","curse ","cursed ","cyclops ",
+
+	    "dagger ","daemon ","dark ","dawn ","deity ",
+	    "demon ","destiny ","divine ","domain ","doom ","dragon ","drake ","druid ","duchess ","duke ","dusk ","dwarf ",
+	    
+	    "eclipse ","elder ","eldritch ","elf ","elixir ","ember ","empire ","enchanted ","enchantment ","essence ",
+	    "eternal ","exile ",
+
+	    "fabled ","fallen ","fang ","fate ","fey ","fire ","flagon ","flame ","flesh ",
+	    "forbidden ","forgotten ","forge ","fortress ","fragment ","frozen ",
+
+	    "gate ","ghost ","giant ","gilded ","glaive ",
+	    "globe ","goblin ","god ","goddess ","golden ","grave ","gremlin ","griffon ","grim ","grove ","guardian ","guild ",
+	    
+	    "halberd ","hallowed ","hammer ","havoc ","heart ","heir ","helm ","hero ","hidden ","hoard ","hobbit ","holy ",
+	    "horn ","host ",
+
+	    "idol ","immortal ","incantation ","inn ","innkeeper ","iron ",
+
+	    "jewel ","journey ",
+
+	    "keep ","key ","king ","kingdom ","knight ","kobold ",
+
+	    "lance ","leeches ","legend ","legendary ","legion ","lich ","light ","lord ",
+	    "lore ","lost ",
+
+	    "mace ","mage ","magic ","maiden ","mantle ","mark ","martyr ","master ","mead ","merchant ",
+	    "mercy ","mermaid ","might ","minotaur ","mirror ","monk ","moon ","moor ","mountain ","mystic ",
+
+	    "necromancer ","northern ",
+
+	    "oath ","obsidian ","omen ","oracle ","orb ","orc ","order ","outrider ",
+
+	    "pact ","paladin ","path ","peak ","peasant ","phantom ","pike ","pillar ","pirate ","pit ","plague ","portal ","potion ","power ",
+	    "prayer ","priest ","prince ","princess ","profane ","prophecy ","prophet ","pyre ",
+	    
+	    "queen ","quest ","quiver ",
+
+	    "radiant ","rage ","ranger ","rats ","raven ","realm ","relic ","rest ","rider ","rift ",
+	    "ring ","rite ","ritual ","rogue ","rook ","ruin ","runed ","rune ",
+
+	    "sacred ","sacrifice ","sage ",
+	    "sanctum ","scepter ","scroll ","scout ","seal ","secret ","seer ","sentinel ","sentry ","serpent ","servant ","shadow ",
+	    "shard ","shield ","shrine ","sight ","sigil ","silk ","silver ","sister ","skull ","slayer ","solemn ",
+	    "song ","sorcerer ","sorcery ","soul ","southern ","sovereign ","spear ","spectral ","spell ","spirit ","staff ",
+	    "star ","stave ","steel ","stone ","storm ","summon ","sunlit ","sun ","swamp ","sword ",
+
+	    "tale ","tavern ","temple ","throne ","tincture ",
+	    "tomb ","torch ","tower ","treaty ","trial ","tribe ","trinity ","troll ","truth ","twilight ",
+
+	    "undead ","unholy ",
+	    
+	    "vale ","vampire ","vault ","veil ","vessel ","vial ","vigil ","vile ","village ","villager ","vision ","void ","vow ",
+
+	    "wall ","wand ","wandering ","ward ","warden ","warlock ","warrior ","watch ","weapon ","whisper ",
+	    "wield ","wight ","wild ","wildlings ","winter ","witch ",
+	    "wizard ","wolf ","wonder ","word ","wound ","woven ","wraith ","wrath ","wyrm ","wyvern ",
+
+	    "zenith "
+	]
+
+    commons | ["a ", "I ", "of ", "with ", "and ", "thee ", "be ", "do ", "it ", "in ", "out ", "up ", "down ", "over ", "under ", "beyond ", "yore ", "thou ", "art ", "ye ", "we ", "us "]
     
-    word_count | pick 1 from 8...25
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+
     rest_words | pick {word_count} from fi_words with dups
-    rest_words |= shuffle(rest_words)
-    common_words | pick {word_count} from commons with dups
-    common_words |= shuffle(common_words)
-    all_words | :pack(rest_words) + :pack(common_words)
+    common_words | pick {word_count2} from commons with dups
+
+    all_words | rest_words + common_words
+
+
+    shuffled_up | shuffle(all_words)
     
     first | pick 1 from fi_words
     first_titled | title(first)
     
-    final | first_titled + " " + :pack(all_words)
+    final | first_titled + " " + :pack(shuffled_up)
     final.trim + ". "
 xx
 
