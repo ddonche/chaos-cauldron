@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lorem Ipsum Generator – Classic Placeholder Text</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate classic lorem ipsum placeholder text when you just need standard filler for mockups and designs.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <!-- AdSense base script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329818065573493"
+       crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <div id="cc-header"></div>
+
+  <!-- Main content -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Page header row with button -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10 18v-7"/>
+              <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"/>
+              <path d="M14 18v-7"/>
+              <path d="M18 18v-7"/>
+              <path d="M3 22h18"/>
+              <path d="M6 18v-7"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Lorem Ipsum Generator</h2>
+            <p class="cc-page-subtitle">
+              Standard lorem ipsum when you just need filler for mockups and designs.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-lorem-ipsum" class="cc-button-primary">
+            Generate Ipsum
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO / crawlable copy -->
+      <p class="cc-page-seo">
+        This lorem ipsum generator produces classic placeholder text for website mockups, design layouts, and print materials.
+        The timeless standard for filler text since the 1500s.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/ipsum/fantasy.html">Fantasy Ipsum</a>,
+        <a href="/ipsum/pirate.html">Pirate Ipsum</a>,
+        <a href="/ipsum/scifi.html">Sci-Fi Ipsum</a>
+      </p>
+
+      <!-- Results panel -->
+      <div id="cc-lorem-ipsum-panel" class="cc-generator-panel">
+        <div id="cc-lorem-ipsum-empty" class="cc-empty-state">
+          Click <strong>Generate Ipsum</strong> to create a classic lorem ipsum block.
+        </div>
+
+        <!-- Single block output -->
+        <div id="cc-lorem-ipsum-results" hidden>
+          <div class="cc-sheet-header">
+            <div>
+              <h3 class="cc-sheet-title">Lorem Ipsum</h3>
+              <p class="cc-sheet-subtitle">Click copy to grab the text.</p>
+            </div>
+
+            <div class="cc-sheet-actions">
+              <button
+                id="cc-lorem-ipsum-copy"
+                class="cc-sheet-reroll"
+                type="button"
+                aria-label="Copy Ipsum"
+                title="Copy Ipsum"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <pre id="cc-lorem-ipsum-text" style="white-space:pre-wrap; margin:1rem 0 0 0; font-family:var(--font-body); font-size:0.95rem; line-height:1.6; color:var(--muted);"></pre>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- AdSense -->
+  <section class="cc-adsense">
+    <div class="cc-adsense-slot">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2329818065573493"
+           data-ad-slot="9373337765"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="cc-footer"></div>
+
+  <!-- Page JS -->
+  <script>
+    (function () {
+      const button = document.getElementById('cc-generate-lorem-ipsum');
+      const emptyState = document.getElementById('cc-lorem-ipsum-empty');
+      const resultsWrap = document.getElementById('cc-lorem-ipsum-results');
+      const textEl = document.getElementById('cc-lorem-ipsum-text');
+      const copyBtn = document.getElementById('cc-lorem-ipsum-copy');
+
+      const ENDPOINT = '/api/lorem_ipsum';
+
+      async function fetchIpsum() {
+        const response = await fetch(ENDPOINT);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return await response.text();
+      }
+
+      async function copyTextToClipboard(text) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+
+      copyBtn.addEventListener('click', async () => {
+        try {
+          const text = textEl.textContent || '';
+          if (!text) return;
+
+          await copyTextToClipboard(text);
+
+          copyBtn.style.opacity = '0.6';
+          setTimeout(() => (copyBtn.style.opacity = '1'), 350);
+        } catch (err) {
+          console.error('Copy failed', err);
+        }
+      });
+
+      let isGenerating = false;
+
+      button.addEventListener('click', async function () {
+        if (isGenerating) return;
+        isGenerating = true;
+
+        const hadResults = !resultsWrap.hasAttribute('hidden');
+        button.textContent = 'Generating…';
+        button.classList.add('cc-button-loading');
+
+        try {
+          const text = await fetchIpsum();
+
+          textEl.textContent = text.trim();
+
+          resultsWrap.removeAttribute('hidden');
+          emptyState.style.display = 'none';
+
+          button.textContent = hadResults ? 'Generate More' : 'Generate More';
+        } catch (err) {
+          console.error(err);
+          button.textContent = 'Error – Try Again';
+        } finally {
+          button.classList.remove('cc-button-loading');
+          isGenerating = false;
+        }
+      });
+    })();
+  </script>
+  <script>
+    fetch('/partials/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('cc-header').innerHTML = html;
+      });
+
+    fetch('/partials/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('cc-footer').innerHTML = html;
+      });
+  </script>
+
+</body>
+</html>

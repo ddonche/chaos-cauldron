@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>404 – Page Not Found | Chaos Cauldron</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Page not found on Chaos Cauldron.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <div id="cc-header"></div>
+
+  <!-- Main content -->
+  <main class="cc-main">
+    <section class="cc-section">
+      
+      <div style="text-align: center; padding: 4rem 1.5rem;">
+        <h1 style="font-family: var(--font-title); font-size: 6rem; margin: 0; color: var(--accent);">404</h1>
+        <h2 style="font-family: var(--font-title); font-size: 2rem; margin: 1rem 0; color: var(--text);">Page Not Found</h2>
+        <p style="color: var(--muted); margin-bottom: 2rem;">
+          The cauldron bubbled over and this page vanished into the mist.
+        </p>
+        <a href="/" class="cc-button-primary" style="display: inline-block; text-decoration: none;">
+          Return Home
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="cc-footer"></div>
+
+  <script>
+    fetch('/partials/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('cc-header').innerHTML = html;
+      });
+
+    fetch('/partials/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('cc-footer').innerHTML = html;
+      });
+  </script>
+
+</body>
+</html>
