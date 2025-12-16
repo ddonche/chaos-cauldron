@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fantasy Ipsum Generator – Fantasy Placeholder Text</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate fantasy-flavored ipsum placeholder text for RPGs, worldbuilding notes, and UI mockups. Produces one clean block of text for easy copy/paste.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Header / Nav (same as index, absolute paths) -->
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <a href="/" class="cc-brand-link" aria-label="Chaos Cauldron home">
+        <div class="cc-brand">
+          <img src="/logo.png" alt="Chaos Cauldron logo" class="cc-logo">
+          <div class="cc-brand-text">
+            <h1 class="cc-site-title">Chaos Cauldron</h1>
+            <p class="cc-site-tagline">Random Generators for RPGs &amp; Storytelling</p>
+          </div>
+        </div>
+      </a>
+
+      <nav class="cc-nav">
+        <a href="/#random-generators" class="cc-nav-link">Random</a>
+        <a href="/#ipsum-generators" class="cc-nav-link">Ipsums</a>
+        <a href="/#word-generators" class="cc-nav-link">Word Lists</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="cc-main">
+    <section class="cc-section">
+
+      <!-- Page header row with button -->
+      <div class="cc-generator-header">
+        <div class="cc-generator-main">
+          <div class="cc-generator-icon">
+            <!-- Fantasy Ipsum icon: EXACT SVG FROM YOUR CARD -->
+            <svg
+              class="cc-generator-icon-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+              <line x1="13" x2="19" y1="19" y2="13"/>
+              <line x1="16" x2="20" y1="16" y2="20"/>
+              <line x1="19" x2="21" y1="21" y2="19"/>
+              <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+              <line x1="5" x2="9" y1="14" y2="18"/>
+              <line x1="7" x2="4" y1="17" y2="20"/>
+              <line x1="3" x2="5" y1="19" y2="21"/>
+            </svg>
+          </div>
+
+          <div>
+            <h2 class="cc-page-title">Fantasy Ipsum Generator</h2>
+            <p class="cc-page-subtitle">
+              Fantasy-flavored placeholder text for RPG notes, worldbuilding docs, and UI mockups. Copy/paste ready.
+            </p>
+          </div>
+        </div>
+
+        <div class="cc-generator-actions">
+          <button id="cc-generate-fantasy-ipsum" class="cc-button-primary">
+            Generate Ipsum
+          </button>
+        </div>
+      </div>
+
+      <hr class="cc-section-divider">
+
+      <!-- SEO / crawlable copy -->
+      <p class="cc-page-seo">
+        This fantasy ipsum generator produces thematic placeholder text with medieval, arcane, and adventuring flavor.
+        Use it for website mockups, RPG handouts, campaign notes, prop letters, and worldbuilding templates.
+      </p>
+
+      <p class="cc-related">
+        Related tools:
+        <a href="/random/npc.html">NPC Generator</a>,
+        <a href="/random/quest-hook.html">Quest Hooks</a>,
+        <a href="/random/tavern.html">Tavern Generator</a>
+      </p>
+
+      <!-- Results panel -->
+      <div id="cc-fantasy-ipsum-panel" class="cc-generator-panel">
+        <div id="cc-fantasy-ipsum-empty" class="cc-empty-state">
+          Click <strong>Generate Ipsum</strong> to create a fantasy lorem ipsum block.
+        </div>
+
+        <!-- Single block output (NOT a grid) -->
+        <div id="cc-fantasy-ipsum-results" hidden>
+          <div class="cc-sheet-header">
+            <div>
+              <h3 class="cc-sheet-title">Fantasy Ipsum</h3>
+              <p class="cc-sheet-subtitle">Click copy to grab the text.</p>
+            </div>
+
+            <div class="cc-sheet-actions">
+              <button
+                id="cc-fantasy-ipsum-copy"
+                class="cc-sheet-reroll"
+                type="button"
+                aria-label="Copy Ipsum"
+                title="Copy Ipsum"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <pre id="cc-fantasy-ipsum-text" style="white-space:pre-wrap; margin:1rem 0 0 0; font-family:var(--font-body); font-size:0.95rem; line-height:1.6; color:var(--muted);"></pre>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- AdSense slot -->
+  <section class="cc-adsense">
+    <div class="cc-adsense-slot">
+      <span class="cc-adsense-placeholder">AdSense Unit</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <div class="cc-footer-inner">
+      <div class="cc-footer-left">
+        <span>© 2025 Chaos Cauldron. All rights reserved.</span>
+        <span> · </span>
+        <span>Powered by <a href="https://goblinlang.org" target="_blank" rel="noopener noreferrer">Goblin Lang</a></span>
+      </div>
+      <div class="cc-footer-right">
+        <a href="#" class="cc-footer-link">About</a>
+        <a href="#" class="cc-footer-link">Suggest</a>
+        <a href="#" class="cc-footer-link">API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page JS: calls Goblin backend, no randomness here -->
+  <script>
+    (function () {
+      const button = document.getElementById('cc-generate-fantasy-ipsum');
+      const emptyState = document.getElementById('cc-fantasy-ipsum-empty');
+      const resultsWrap = document.getElementById('cc-fantasy-ipsum-results');
+      const textEl = document.getElementById('cc-fantasy-ipsum-text');
+
+      const copyBtn = document.getElementById('cc-fantasy-ipsum-copy');
+
+      // CHANGE THIS if your route is different
+      const ENDPOINT = '/api/fantasy_ipsum';
+
+      async function fetchIpsum() {
+        const response = await fetch(ENDPOINT);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return await response.text();
+      }
+
+      async function copyTextToClipboard(text) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+
+      copyBtn.addEventListener('click', async () => {
+        try {
+          const text = textEl.textContent || '';
+          if (!text) return;
+
+          await copyTextToClipboard(text);
+
+          copyBtn.style.opacity = '0.6';
+          setTimeout(() => (copyBtn.style.opacity = '1'), 350);
+        } catch (err) {
+          console.error('Copy failed', err);
+        }
+      });
+
+      let isGenerating = false;
+
+      button.addEventListener('click', async function () {
+        if (isGenerating) return;
+        isGenerating = true;
+
+        const hadResults = !resultsWrap.hasAttribute('hidden');
+        button.textContent = 'Generating…';
+        button.classList.add('cc-button-loading');
+
+        try {
+          const text = await fetchIpsum();
+
+          // ONE block. No parsing. No splitting.
+          textEl.textContent = text.trim();
+
+          resultsWrap.removeAttribute('hidden');
+          emptyState.style.display = 'none';
+
+          button.textContent = hadResults ? 'Generate More' : 'Generate More';
+        } catch (err) {
+          console.error(err);
+          button.textContent = 'Error – Try Again';
+        } finally {
+          button.classList.remove('cc-button-loading');
+          isGenerating = false;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
