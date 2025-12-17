@@ -1,0 +1,86 @@
+/// character.gbln
+/// One fantasy character per run.
+/// Arrays only. pick 1 only.
+/// No if/elif branching.
+/// Output is line-based for easy parsing in the frontend.
+
+import lib/fantasy_names as fnames
+
+act character_generator
+    archetypes | [
+        "wandering sellsword","runaway noble","disgraced scholar","temple escapee","cursed heir","back-alley medic",
+        "oathbound knight","witch-touched outcast","desert scout","city-bred thief","exiled diplomat","monster-hunter",
+        "failed apprentice","battlefield chaplain","former cultist","reformed bandit","cartographer","shipwreck survivor"
+    ]
+
+    callings | [
+        "fighter","ranger","rogue","bard","cleric","druid","wizard","sorcerer","warlock","paladin","monk","barbarian"
+    ]
+
+    virtues | [
+        "unshakable loyalty","quiet courage","stubborn hope","ruthless honesty","protective instinct","reckless generosity",
+        "cold discipline","patient curiosity","mercy for the undeserving","iron resolve","humble devotion","unyielding grit"
+    ]
+
+    flaws | [
+        "can’t let an insult go","lies when scared","addicted to risk","refuses help","hoards secrets","picks fights to feel alive",
+        "expects betrayal","craves approval","runs from grief","needs control","forgives too easily","takes responsibility for everything"
+    ]
+
+    wounds | [
+        "they watched a home burn","they failed someone who trusted them","they survived something they shouldn’t have",
+        "they were branded as a child","they were betrayed by a mentor","they made a deal they regret",
+        "they lost years to a fever dream","they were forced to hurt someone","they fled instead of staying","they were left for dead"
+    ]
+
+    goals | [
+        "to find a missing sibling","to break a family curse","to earn a pardon","to destroy a named enemy",
+        "to recover a stolen relic","to pay an impossible debt","to prove they’re not a monster","to build a safe place",
+        "to uncover a hidden truth","to become worthy of a title","to learn a forbidden art","to outrun their past"
+    ]
+
+    bonds | [
+        "a younger friend who believes in them","a rival they secretly respect","a mentor they can’t forgive",
+        "a dying parent back home","a crew who once saved their life","a lover they left behind",
+        "a god they argue with","a village that depends on them","a ghost that follows them","a pet that won’t leave"
+    ]
+
+    tells | [
+        "never removes their gloves","keeps their back to the wall","talks to fire like it listens","always counts exits",
+        "smiles at the worst times","flinches at sudden kindness","collects little bones","won’t sleep indoors",
+        "polishes weapons when anxious","can’t stand silence","hates mirrors","writes names in a tiny notebook"
+    ]
+
+    signature_gear | [
+        "a chipped sword with a saint’s name","a bow made from shipwreck wood","a spellbook missing pages",
+        "a cracked holy symbol that still works","a dagger that won’t rust","a cloak stitched with old maps",
+        "a ring that’s too heavy","a staff carved with tally marks","a locket with чужой hair inside","a compass that points wrong"
+    ]
+
+    /// Build ONE character (no arrays in output; just lines)
+    first | fnames::fantasy_first_name()
+    last  | fnames::fantasy_last_name()
+
+    archetype | pick 1 from archetypes
+    calling   | pick 1 from callings
+    virtue    | pick 1 from virtues
+    flaw      | pick 1 from flaws
+    wound     | pick 1 from wounds
+    goal      | pick 1 from goals
+    bond      | pick 1 from bonds
+    tell      | pick 1 from tells
+    gear      | pick 1 from signature_gear
+
+    say "name:" ++ first ++ last
+    say "calling:" ++ calling
+    say "archetype:" ++ archetype
+    say "virtue:" ++ virtue
+    say "flaw:" ++ flaw
+    say "wound:" ++ wound
+    say "goal:" ++ goal
+    say "bond:" ++ bond
+    say "tell:" ++ tell
+    say "signature_gear:" ++ gear
+xx
+
+character_generator()

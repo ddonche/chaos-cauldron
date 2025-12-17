@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NPC Generator – Quick NPCs for RPGs & Writing</title>
+  <title>Fantasy Character Generator – RPG & Writing Characters</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Generate a single NPC with name, role, traits, quirks, motives, and hooks. Includes per-field rerolls for fast RPG prep and writing inspiration.">
+  <meta name="description" content="Generate a complete fantasy character with name, calling, archetype, virtue, flaw, wound, goal, bond, tell, and signature gear. Includes per-field rerolls.">
   <link rel="stylesheet" href="/css/styles.css">
   <!-- AdSense base script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329818065573493"
@@ -23,7 +23,6 @@
       <div class="cc-generator-header">
         <div class="cc-generator-main">
           <div class="cc-generator-icon">
-            <!-- NPC icon from index.html -->
             <svg
               class="cc-generator-icon-svg"
               xmlns="http://www.w3.org/2000/svg"
@@ -35,18 +34,16 @@
               stroke-linejoin="round"
               aria-hidden="true"
             >
-              <path d="M7 10H6a4 4 0 0 1-4-4 1 1 0 0 1 1-1h4"/>
-              <path d="M7 5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1 7 7 0 0 1-7 7H8a1 1 0 0 1-1-1z"/>
-              <path d="M9 12v5"/>
-              <path d="M15 12v5"/>
-              <path d="M5 20a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3 1 1 0 0 1-1 1H6a1 1 0 0 1-1-1"/>
+              <path d="M18 11c-1.5 0-2.5.5-3 2"/>
+              <path d="M4 6a2 2 0 0 0-2 2v4a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V8a2 2 0 0 0-2-2h-3a8 8 0 0 0-5 2 8 8 0 0 0-5-2z"/>
+              <path d="M6 11c1.5 0 2.5.5 3 2"/>
             </svg>
           </div>
 
           <div>
-            <h2 class="cc-page-title">NPC Generator</h2>
+            <h2 class="cc-page-title">Fantasy Character Generator</h2>
             <p class="cc-page-subtitle">
-              Generate one NPC at a time — with motives, quirks, and a hook.
+              Generate one complete character at a time — archetype, calling, virtues, flaws, bonds, and gear.
               Use lock to keep fields. Edit with the pencil. Reroll replaces.
             </p>
           </div>
@@ -54,39 +51,38 @@
 
         <div class="cc-generator-actions">
           <button id="cc-generate" class="cc-button-primary" type="button">
-            Generate NPC
+            Generate Character
           </button>
         </div>
       </div>
 
       <hr class="cc-section-divider">
 
-      <!-- SEO / crawlable copy -->
       <p class="cc-page-seo">
-        This NPC generator creates quick non-player characters for tabletop RPGs and fiction writing.
-        Each NPC includes a name, role, traits, a quirk, and a usable story hook.
+        This fantasy character generator creates complete characters for tabletop RPGs, worldbuilding, and fiction writing.
+        Each character includes a name, archetype, calling, core traits, a defining wound, a clear goal, and signature gear.
         Lock what you want to keep, reroll the rest, then copy.
       </p>
 
       <p class="cc-related">
         Related tools:
+        <a href="/random/npc.html">NPCs</a>,
         <a href="/random/quest-hook.html">Quest Hooks</a>,
-        <a href="/random/place-names.html">Place Names</a>,
-        <a href="/words/nouns.html">Nouns</a>
+        <a href="/random/place-names.html">Place Names</a>
       </p>
 
       <!-- Results panel -->
       <div id="cc-panel" class="cc-generator-panel">
 
         <div id="cc-empty" class="cc-empty-state">
-          Click <strong>Generate NPC</strong> to create one NPC.
+          Click <strong>Generate Character</strong> to create one fantasy character.
         </div>
 
         <div id="cc-results" hidden>
 
           <div class="cc-sheet-header">
             <div>
-              <h3 class="cc-sheet-title">NPC Sheet</h3>
+              <h3 class="cc-sheet-title">Character Sheet</h3>
               <p class="cc-sheet-subtitle">Lock fields to keep them, then reroll the rest. Pencil edits are kept.</p>
             </div>
 
@@ -95,8 +91,8 @@
                 id="cc-sheet-copy"
                 class="cc-sheet-reroll"
                 type="button"
-                aria-label="Copy NPC"
-                title="Copy NPC"
+                aria-label="Copy Character"
+                title="Copy Character"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -145,14 +141,16 @@
       const copyBtn = document.getElementById('cc-sheet-copy');
 
       const FIELDS = [
-        { key: 'name',        label: 'Name' },
-        { key: 'role',        label: 'Role' },
-        { key: 'appearance',  label: 'Appearance' },
-        { key: 'personality', label: 'Personality' },
-        { key: 'quirk',       label: 'Quirk' },
-        { key: 'want',        label: 'Want' },
-        { key: 'secret',      label: 'Secret' },
-        { key: 'hook',        label: 'Hook' },
+        { key: 'name', label: 'Name' },
+        { key: 'calling', label: 'Calling' },
+        { key: 'archetype', label: 'Archetype' },
+        { key: 'virtue', label: 'Virtue' },
+        { key: 'flaw', label: 'Flaw' },
+        { key: 'wound', label: 'Wound' },
+        { key: 'goal', label: 'Goal' },
+        { key: 'bond', label: 'Bond' },
+        { key: 'tell', label: 'Tell' },
+        { key: 'signature_gear', label: 'Signature Gear' },
       ];
 
       const rerollIcon = `
@@ -200,8 +198,8 @@
         return out;
       }
 
-      async function fetchNpc() {
-        const res = await fetch('/api/npc', { headers: { 'Accept': 'text/plain' } });
+      async function fetchCharacter() {
+        const res = await fetch('/api/character', { headers: { 'Accept': 'text/plain' } });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return parseBlock(await res.text());
       }
@@ -211,8 +209,10 @@
 
         const original = valEl.textContent.trim();
         const isLong =
-          key === 'hook' ||
-          key === 'secret' ||
+          key === 'wound' ||
+          key === 'goal' ||
+          key === 'bond' ||
+          key === 'tell' ||
           original.length > 60;
 
         valEl.dataset.editing = '1';
@@ -253,8 +253,10 @@
         lockBtn.setAttribute('aria-pressed', isLocked ? 'true' : 'false');
         lockBtn.title = isLocked ? `Unlock ${row.querySelector('.cc-sheet-label')?.textContent || key}` : `Lock ${row.querySelector('.cc-sheet-label')?.textContent || key}`;
 
+        // ADD THIS LINE:
         row.classList.toggle('cc-locked', isLocked);
 
+        // subtle visual hint without needing new CSS
         lockBtn.style.opacity = isLocked ? '1' : '0.75';
         lockBtn.style.transform = isLocked ? 'scale(1.02)' : 'none';
       }
@@ -281,6 +283,7 @@
             <div class="cc-sheet-label">${label}</div>
             <div class="cc-sheet-value" title="Click to edit">—</div>
 
+            <!-- keep actions in ONE cell -->
             <div class="cc-sheet-actions" style="display:flex; justify-content:flex-end; gap:8px;">
               <button class="cc-sheet-reroll cc-sheet-lock-btn" type="button"
                 aria-label="Lock ${label}" aria-pressed="false" title="Lock ${label}">
@@ -322,7 +325,7 @@
           // reroll (blocked if locked)
           rerollBtn.addEventListener('click', async () => {
             if (locked.has(key)) return;
-            const fresh = await fetchNpc();
+            const fresh = await fetchCharacter();
             if (fresh[key]) val.textContent = fresh[key];
           });
 
@@ -333,12 +336,12 @@
         });
       }
 
-      function applyNpc(npc, { respectLocks } = { respectLocks: false }) {
+      function applyCharacter(ch, { respectLocks } = { respectLocks: false }) {
         ensureRows();
         FIELDS.forEach(({ key }) => {
           if (respectLocks && locked.has(key)) return;
           const val = grid.querySelector(`[data-key="${key}"] .cc-sheet-value`);
-          if (val) val.textContent = npc[key] || '—';
+          if (val) val.textContent = ch[key] || '—';
         });
       }
 
@@ -391,12 +394,12 @@
 
         btnTop.textContent = 'Generating…';
         try {
-          const npc = await fetchNpc();
+          const ch = await fetchCharacter();
 
           // FIRST generate: fill everything
           // NEXT generates: keep locked fields, reroll the rest
           const hasRows = grid.children.length > 0;
-          applyNpc(npc, { respectLocks: hasRows });
+          applyCharacter(ch, { respectLocks: hasRows });
 
           empty.style.display = 'none';
           resultsWrap.hidden = false;
@@ -424,5 +427,6 @@
         document.getElementById('cc-footer').innerHTML = html;
       });
   </script>
+
 </body>
 </html>
