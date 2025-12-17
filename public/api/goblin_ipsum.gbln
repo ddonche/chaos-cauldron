@@ -1,0 +1,66 @@
+act goblin_ipsum_sentence
+	gbln_words | [
+	    "grak ", "snortum ", "jabberfang ", "muck-pit ", "shinies ", "grotto ", "cave ", "rev ", "pain ",
+	    "skitter ", "chitter ", "scrapclave ", "bog-brew ", "stash ", "fang ", "hidden ", "treasures ", "keeper ",
+	    "tether ", "hoard ", "stash ", "skrag ", "bones ", "gold ", "lock ", "club ", "hut ", "clan ", "warrior ",
+	    "graveyard ", "coin ", "loot ", "glam-glam ", "mutton ", "hock ", "priest ", "priestess ", "magic ", "sorceror ",
+	    "boom ", "goblin ", "filch ", "snicker ", "clank ", "rusty ", "witch ", "wizard ", "feast ", "supper ", "rotten ",
+	    "zint ", "krell ", "vosh ", "tarrak ", "brumm ", "gless ", "sharn ", "dorr ", "ogre ", "giant ", "beast ", "monster ",
+	    "jelt ", "murn ", "plesh ", "quarn ", "rellik ", "sann ", "torm ", "vellix ", "human ", "elf ", "dwarf ", "hobbit ", "orc ",
+	    "zorn ", "brask ", "chull ", "drimm ", "fess ", "gann ", "hork ", "jinx ", "kress ", "troll ", "gremlin ", "imp ", "demons ",
+	    "lorn ", "mizz ", "neth ", "phex ", "quill ", "rusk ", "seth ", "tazz ", "vorn ", "bats ", "spider ", "snake ", "pirates ",
+	    "wex ", "yorn ", "zess ", "blint ", "crall ", "druss ", "frenn ", "grish ", "halth ", "fishy ", "me ", "mines ", "wanting ",
+	    "jorr ", "krinn ", "lusk ", "morth ", "nall ", "prill ", "quess ", "rinth ", "took ", "ghouls ", "coffin ", "swampy ",
+	    "soll ", "trenn ", "vask ", "winn ", "xell ", "zall ", "zi ", "kor ", "vu ", "taz ", "him ", "her ", "kiddie ", "itsy ",
+	    "gle ", "shu ", "dor ", "je ", "mur ", "qar ", "re ", "sax ", "to ", "vex ", "zo ", "chu ", "bitsy ", "welcome ", "wishy ", "sparkle ",
+	    "fex ", "ga ", "hor ", "ji ", "kru ", "lo ", "miz ", "ne ", "phi ", "qi ", "ruz ", "se ", "tav ", "sleepy ", "mad ", "hurt ", "come ",
+	    "vo ", "wex ", "yo ", "zes ", "cra ", "dr ", "fri ", "gr ", "hal ", "jo ", "kri ", "lu ", "mor ", "cough ", "sick ", "taken ", "lost ",
+	    "na ", "pri ", "qu ", "rin ", "so ", "tru ", "va ", "wil ", "xe ", "zal ", "away ", "gone ", "green ", "yellow ", "red ", "blue ",
+	    "purple ", "brown ", "black ", "white ", "pink ", "orange ", "totem ", "power ", "thinky ", "good ", "tower ",
+	    "knife ", "stick ", "runny ", "long ", "time ", "many-many ", "get ", "hooky ", "doggums ", "yum-yum ", "lashy ",
+	    "terribles ",
+	]
+
+    commons | [
+    	"the ", "and ", "in ", "under ", "over ", "through ", "with ", "from ", "above ", "if ",
+    	"of ", "a ", "this ", "that ", "little ", "old ", "hungry ", "loud ", "under ", "go ",
+    	"quiet ", "strange ", "broken ", "big ", "tiny ", "at ", "there ", "be ", "for ", "out ",
+    ]
+    
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+
+    rest_words | pick {word_count} from gbln_words with dups
+    common_words | pick {word_count2} from commons with dups
+
+    all_words | rest_words + common_words
+
+
+    shuffled_up | shuffle(all_words)
+    
+    first | pick 1 from gbln_words
+    first_titled | title(first)
+    
+    final | first_titled + " " + :pack(shuffled_up)
+    final.trim + ". "
+xx
+
+act goblin_ipsum_paragraph
+    sentence_count | pick 1 from 3...7
+    sentences | []
+    repeat sentence_count
+        s | goblin_ipsum_sentence()
+        put_last!(sentences, s)
+    xx
+    :pack(sentences)
+xx
+
+act goblin_ipsum
+    para_count | pick 1 from 2...4
+    repeat para_count
+        say goblin_ipsum_paragraph()
+        say ""
+    xx
+xx
+
+goblin_ipsum()

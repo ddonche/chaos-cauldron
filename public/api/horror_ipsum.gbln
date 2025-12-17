@@ -1,0 +1,61 @@
+act horror_ipsum_sentence
+    horror_words | [
+        "666 ","abandoned ","abduction ", "abyss ", "agony ","alien ", "apparition ", "asylum ", "banshee ", "beast ", "bite ", "black ", "blade ", 
+        "bleed ", "blood ", "bone ", "burial ","buried alive ", "candle ", "casket ", "cathedral ", "cemetery ", "chains ", "chant ",
+        "claw ", "coffin ", "corpse ", "creature ", "creep ", "crimson ","crucifix ", "crypt ", "curse ", "dagger ", "dark ",
+        "darkness ", "dawn ", "dead ", "death ", "decay ", "demon ","demonic ", "despair ", "devil ", "doom ", "dread ",
+        "dungeon ", "dusk ", "entity ", "eternal ", "evil ", "exorcism ", "eye ", "fang ", "fear ", "fiend ",
+        "fog ", "forbidden ", "forest ", "forsaken ", "funeral ","garlic ", "ghost ", "ghoul ", "gore ", "grave ", "graveyard ",
+        "grim ","Halloween ", "haunt ","haunted ","haunting ", "hex ", "hollow ", "horror ", "howl ", "immortal ", "incantation ",
+        "infection ", "insanity ","killer ", "limb ",
+        "lurk ", "macabre ","machete ", "madness ", "malice ", "manor ", "mask ", "midnight ", "mist ", "monster ", "moon ",
+        "morgue ", "mortal ", "murder ", "necromancer ", "night ", "nightmare ", "omen ", "organ ", "pale ","panic ", "paranormal ","parasite ",
+        "phantom ", "plague ", "possession ", "prey ", "priest ", "prophecy ", "putrid ", "raven ", "reaper ", "reek ",
+        "remnant ", "resurrection ", "revenant ", "ritual ", "rot ", "rotten ", "ruin ", "sacrifice ","Satanic ", "scalpel ", "scar ","scare ","scarecrow ",
+        "scream ", "seance ", "sepulcher ", "serial ", "serpent ", "shade ", "shadow ", "shiver ", "shriek ", "shroud ",
+        "silent ", "sinister ", "skeleton ", "skull ","silver bullet ","slasher ", "slaughter ", "specter ", "spell ", "spine ","spider ", 
+        "spirit ", "stalk ","stalker ",
+        "stare ", "stench ", "stillness ", "supernatural ", "surgeon ", "swamp ","terror ", "tomb ", "torment ", "torture ", "tower ",
+        "trance ", "trapped ", "twilight ", "undead ", "unholy ", "vampire ", "veil ", "victim ", "vigil ","virus ", "vision ",
+        "void ", "voodoo ", "wail ", "warning ", "werewolf ", "whisper ", "witch ", "witchcraft ", "womb ","wooden stake ", "wound ",
+        "wraith ", "wretched ", "zombie ",
+    ]
+    commons | [
+        "the ", "and ", "in ", "of ", "a ", "to ", "from ", "with ", "by ", "for ",
+        "at ", "through ", "into ", "within ", "beneath ", "beyond ", "above ", "below ", "among ", "between ",
+        "inside ", "outside ", "around ", "near ", "upon ", "across ", "under ", "over ", "behind ", "before ",
+    ]
+    
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+    rest_words | pick {word_count} from horror_words with dups
+    common_words | pick {word_count2} from commons with dups
+    all_words | rest_words + common_words
+    shuffled_up | shuffle(all_words)
+    
+    first | pick 1 from horror_words
+    first_titled | title(first)
+    
+    final | first_titled + " " + :pack(shuffled_up)
+    final.trim + ". "
+xx
+
+act horror_ipsum_paragraph
+    sentence_count | pick 1 from 3...7
+    sentences | []
+    repeat sentence_count
+        s | horror_ipsum_sentence()
+        put_last!(sentences, s)
+    xx
+    :pack(sentences)
+xx
+
+act horror_ipsum
+    para_count | pick 1 from 2...4
+    repeat para_count
+        say horror_ipsum_paragraph()
+        say ""
+    xx
+xx
+
+horror_ipsum()

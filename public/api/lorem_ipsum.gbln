@@ -1,0 +1,65 @@
+act lorem_ipsum_sentence
+    lorem_words | [
+        "a ", "ac ", "accumsan ", "ad ", "adipiscing ", "aenean ", "aliquam ", "aliquet ", "amet ", "ante ",
+        "aperiam ", "aptent ", "arcu ", "at ", "auctor ", "augue ", "bibendum ", "blandit ", "class ", "commodo ",
+        "condimentum ", "congue ", "consectetur ", "consequat ", "conubia ", "convallis ", "cras ", "cubilia ", "curabitur ", "curae ",
+        "cursus ", "dapibus ", "diam ", "dictum ", "dictumst ", "dignissim ", "dis ", "dolor ", "dolore ", "donec ",
+        "dui ", "duis ", "egestas ", "eget ", "eleifend ", "elementum ", "elit ", "enim ", "erat ", "eros ",
+        "est ", "et ", "etiam ", "eu ", "euismod ", "facilisi ", "facilisis ", "fames ", "faucibus ", "felis ",
+        "fermentum ", "feugiat ", "finibus ", "fringilla ", "fusce ", "gravida ", "habitant ", "habitasse ", "hac ", "hendrerit ",
+        "himenaeos ", "iaculis ", "id ", "imperdiet ", "in ", "inceptos ", "integer ", "interdum ", "ipsum ", "justo ",
+        "lacinia ", "lacus ", "laoreet ", "lectus ", "leo ", "libero ", "ligula ", "litora ", "lobortis ", "lorem ",
+        "luctus ", "maecenas ", "magna ", "magnis ", "malesuada ", "massa ", "mattis ", "mauris ", "maximus ", "metus ",
+        "mi ", "molestie ", "mollis ", "montes ", "morbi ", "mus ", "nam ", "nascetur ", "natoque ", "nec ",
+        "neque ", "netus ", "nibh ", "nisi ", "nisl ", "non ", "nostra ", "nulla ", "nullam ", "nunc ",
+        "odio ", "orci ", "ornare ", "parturient ", "pellentesque ", "penatibus ", "per ", "pharetra ", "phasellus ", "placerat ",
+        "platea ", "porta ", "porttitor ", "posuere ", "potenti ", "praesent ", "pretium ", "primis ", "proin ", "pulvinar ",
+        "purus ", "quam ", "quis ", "quisque ", "rhoncus ", "ridiculus ", "risus ", "rutrum ", "sagittis ", "sapien ",
+        "scelerisque ", "sed ", "sem ", "semper ", "senectus ", "sit ", "sociosqu ", "sodales ", "sollicitudin ", "suscipit ",
+        "suspendisse ", "taciti ", "tellus ", "tempor ", "tempus ", "tincidunt ", "torquent ", "tortor ", "tristique ", "turpis ",
+        "ullamcorper ", "ultrices ", "ultricies ", "urna ", "ut ", "varius ", "vehicula ", "vel ", "velit ", "venenatis ",
+        "vestibulum ", "vitae ", "vivamus ", "viverra ", "volutpat ", "vulputate ",
+    ]
+    commons | [
+        "a ", "ac ", "ad ", "amet ", "at ", "auctor ", "consectetur ", "cum ", "de ", "dis ",
+        "dolor ", "donec ", "duis ", "eget ", "eleifend ", "elit ", "enim ", "erat ", "est ", "et ",
+        "eu ", "ex ", "felis ", "fermentum ", "fringilla ", "id ", "in ", "ipsum ", "lacus ", "leo ",
+        "libero ", "lorem ", "magna ", "mauris ", "mi ", "molestie ", "nam ", "nec ", "neque ", "nibh ",
+        "non ", "nulla ", "nunc ", "odio ", "orci ", "pellentesque ", "per ", "porta ", "proin ", "quam ",
+        "quis ", "rhoncus ", "risus ", "sagittis ", "sapien ", "scelerisque ", "sed ", "sem ", "sit ", "sodales ",
+        "suscipit ", "tellus ", "tempor ", "tristique ", "turpis ", "ut ", "vel ", "velit ", "vestibulum ", "vitae ",
+    ]
+    
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+    rest_words | pick {word_count} from lorem_words with dups
+    common_words | pick {word_count2} from commons with dups
+    all_words | rest_words + common_words
+    shuffled_up | shuffle(all_words)
+    
+    first | pick 1 from lorem_words
+    first_titled | title(first)
+    
+    final | first_titled + " " + :pack(shuffled_up)
+    final.trim + ". "
+xx
+
+act lorem_ipsum_paragraph
+    sentence_count | pick 1 from 3...7
+    sentences | []
+    repeat sentence_count
+        s | lorem_ipsum_sentence()
+        put_last!(sentences, s)
+    xx
+    :pack(sentences)
+xx
+
+act lorem_ipsum
+    para_count | pick 1 from 2...4
+    repeat para_count
+        say lorem_ipsum_paragraph()
+        say ""
+    xx
+xx
+
+lorem_ipsum()

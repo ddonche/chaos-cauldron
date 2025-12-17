@@ -1,0 +1,53 @@
+act steampunk_ipsum_sentence
+    steampunk_words | [
+        "aether ", "airship ", "apparatus ", "artifice ", "assembly ", "automaton ","balloon ", "baron ", "bellows ", "boiler ", "boilerplate ",
+        "bolt ", "brass ", "bronze ", "buckle ", "calibrate ", "chimney ","clock ", "clockwork ", "coal ", "cog ", "cogwheel ",
+        "compressor ", "conduit ", "contraption ", "copper ", "countess ", "crankshaft ", "cylinder ", "device ", "dirigible ", "duct ",
+        "engine ", "engineer ", "factory ","fire ", "furnace ", "gadget ", "gasket ", "gauge ", "gear ", "gearwork ", "gentleman ",
+        "goggles ", "governor ","grease ", "grime ","gun ","helium ","hot air ","hook ", "hydraulic ","hydrogen ", "industrial ", "invention ", "inventor ", "iron ", "ironwork ", "knob ",
+        "laboratory ", "leather ", "lever ", "locomotive ", "machine ", "machinery ", "mainspring ", "mechanical ", "mechanized ", "mechanism ",
+        "metal ", "monocle ", "oil ", "ornate ", "patent ", "pipe ", "piston ", "plume ", "pneumatic ", "power ",
+        "pressure ", "propeller ", "pulley ", "pump ", "ratchet ", "register ", "retrofitted ", "rivet ", "riveted ", "rod ",
+        "rudder ", "rust ","sail ", "screw ", "shaft ","sky ", "smoke ", "soot ", "spring ", "sprocket ", "steam ", "steel ",
+        "telescope ", "throttle ", "tinker ","top hat ", "torque ", "transmission ", "turbine ", "valve ", "vapor ", "Victorian ", "voltage ",
+        "watchmaker ", "weld ", "wheel ", "workshop ", "wrench ", "zeppelin ",
+    ]
+    commons | [
+        "the ", "and ", "in ", "of ", "a ", "to ", "from ", "with ", "by ", "for ",
+        "at ", "through ", "into ", "within ", "upon ", "beneath ", "above ", "below ", "among ", "between ",
+        "around ", "near ", "across ", "under ", "over ", "behind ", "before ", "inside ", "outside ", "via ",
+    ]
+    
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+    rest_words | pick {word_count} from steampunk_words with dups
+    common_words | pick {word_count2} from commons with dups
+    all_words | rest_words + common_words
+    shuffled_up | shuffle(all_words)
+    
+    first | pick 1 from steampunk_words
+    first_titled | title(first)
+    
+    final | first_titled + " " + :pack(shuffled_up)
+    final.trim + ". "
+xx
+
+act steampunk_ipsum_paragraph
+    sentence_count | pick 1 from 3...7
+    sentences | []
+    repeat sentence_count
+        s | steampunk_ipsum_sentence()
+        put_last!(sentences, s)
+    xx
+    :pack(sentences)
+xx
+
+act steampunk_ipsum
+    para_count | pick 1 from 2...4
+    repeat para_count
+        say steampunk_ipsum_paragraph()
+        say ""
+    xx
+xx
+
+steampunk_ipsum()

@@ -1,0 +1,61 @@
+act scifi_ipsum_sentence
+    scifi_words | [
+        "AI ","alien ", "android ","ansible ", "antimatter ", "asteroid ", "atmosphere ", "beam ", "binary ", "bioship ", 
+        "black hole ","blaster ","bug ", "cargo ",
+        "cipher ","clone ","code ", "colony ", "comet ","computer ", "console ","constellation ", "containment ", "core ", "corridor ", "corvette ", "cruiser ", "cryopod ",
+        "cyborg ","dark matter ", "database ", "deck ","district ","DNA ", "droid ","Earth ", "eclipse ", "empire ", "engine ", "exoplanet ", 
+        "federation ","field ", "fighter ",
+        "fleet ", "frigate ", "fusion ", "galaxy ","GPS ", "gravity ", "grid ", "hangar ", "hologram ", "hull ", "hyperspace ",
+        "implant ","interstellar ", "ion ", "jump ","Jupiter ","lander ", "laser ","launch ","launchpad ","light speed ",
+        "Mars ","Mercury ", "module ", "nebula ","Neptune ", "neural ", "neutron ","nuclear ","nuclear reactor ",
+        "orbit ", "outpost ","parallel reality ","parasite ",
+        "particle ", "phase ", "photon ","physics ", "pilot ","planet ", "plasma ","Pluto ", "pod ", "portal ", "power ","prism ", "probe ", "protocol ",
+        "pulse ", "quantum ","quarantine ", "quasar ", "radar ", "radiation ","radio ", "reactor ", "relay ", "robot ",
+        "robotics ", "rocket ","satellite ","Saturn ", "scanner ",
+        "sector ", "sensor ", "servo ", "shield ", "shuttle ", "signal ", "singularity ", "solar ", "space ", "spectrum ","spice ",
+        "star ","starfleet ", "starship ", "station ", "stellar ","stun ", "subspace ", "supernova ", "system ", "tachyon ", "tech ",
+        "telescope ","terraform ", "terminal ",
+        "thruster ","time machine ","time travel ", "torpedo ", "transmission ", "transport ", "turret ","universe ","Uranium ","Uranus ",
+        "vaccine ","vector ","Venus ", "vessel ","virus ", "void ", 
+        "voyage ","warp ","waves ", "wormhole ","xenomorph ",
+        "xenon ","zombie ","zone ",
+    ]
+    commons | [
+        "the ", "and ", "in ", "on ", "at ", "to ", "from ", "with ", "by ", "for ",
+        "of ", "a ", "an ", "this ", "that ", "through ", "across ", "beyond ", "near ", "far ",
+        "into ", "within ", "without ", "above ", "below ", "around ", "between ", "among ", "via ", "per ",
+    ]
+    
+    word_count | pick 1 from 2...18
+    word_count2 | pick 1 from 2...6
+    rest_words | pick {word_count} from scifi_words with dups
+    common_words | pick {word_count2} from commons with dups
+    all_words | rest_words + common_words
+    shuffled_up | shuffle(all_words)
+    
+    first | pick 1 from scifi_words
+    first_titled | title(first)
+    
+    final | first_titled + " " + :pack(shuffled_up)
+    final.trim + ". "
+xx
+
+act scifi_ipsum_paragraph
+    sentence_count | pick 1 from 3...7
+    sentences | []
+    repeat sentence_count
+        s | scifi_ipsum_sentence()
+        put_last!(sentences, s)
+    xx
+    :pack(sentences)
+xx
+
+act scifi_ipsum
+    para_count | pick 1 from 2...4
+    repeat para_count
+        say scifi_ipsum_paragraph()
+        say ""
+    xx
+xx
+
+scifi_ipsum()
