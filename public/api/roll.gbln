@@ -1,15 +1,10 @@
 /// API: roll {expr}
-
 act api_roll
-    expr_str | env("QUERY")["expr"]
-
-    /// remove surrounding quotes
-    expr_clean | expr_str.keep_between("\"", "\"")
-
-    /// execute dice expression (no quotes)
-    result | roll_detail expr_clean
-
-    say result
+    query_string | env("GOBLIN_QUERY_STRING")
+    /// Parse expr=3d6 -> extract the value after =
+    expr | query_string.keep_after("expr=")
+    /// execute dice expression using the _str variant
+    result | roll_detail_str(expr)
+    say json_stringify(result)
 end
-
 api_roll()

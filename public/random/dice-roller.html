@@ -23,7 +23,6 @@
 
         <div class="cc-generator-main">
           <div class="cc-generator-icon">
-            <!-- SAME SVG USED ON INDEX -->
             <svg
               class="cc-generator-icon-svg"
               xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +45,7 @@
           <div>
             <h2 class="cc-page-title">Dice Roller</h2>
             <p class="cc-page-subtitle">
-              Roll any dice expression: <strong>1d20</strong>, <strong>3d6+2</strong>, <strong>4d4</strong>, and more.
+              Roll any dice expression: <strong>1d20</strong>, <strong>3d6+2</strong>, <strong>4d4-1</strong>, and more.
             </p>
           </div>
         </div>
@@ -63,13 +62,21 @@
 
       </div>
 
-      <!-- Results panel -->
+      <hr class="cc-section-divider">
+
+      <p class="cc-page-seo">
+        This dice roller supports standard RPG notation: roll any number of dice with any number of sides, 
+        plus or minus modifiers. Examples: 1d20, 3d6+4, 2d8-1, 4d6, 1d100. 
+      </p>
+
+      <!-- Console panel -->
       <div id="cc-dice-panel" class="cc-generator-panel">
         <div id="cc-dice-empty" class="cc-empty-state">
           Enter a dice expression above and click <strong>Roll Dice</strong>.
         </div>
 
-        <div id="cc-dice-results" class="cc-results-grid" hidden>
+        <div id="cc-dice-console" class="cc-dice-console" hidden>
+          <!-- Roll history appears here -->
         </div>
       </div>
 
@@ -100,12 +107,10 @@
       const input = document.getElementById('cc-dice-input');
       const button = document.getElementById('cc-roll-button');
       const emptyState = document.getElementById('cc-dice-empty');
-      const results = document.getElementById('cc-dice-results');
+      const console = document.getElementById('cc-dice-console');
 
       async function rollDice(expr) {
-        const encoded = encodeURIComponent('"' + expr + '"');
-
-        const response = await fetch('/api/roll?expr=' + encoded, {
+        const response = await fetch('/api/roll?expr=' + expr, {  // Remove encodeURIComponent
           headers: { 'Accept': 'application/json' }
         });
 
@@ -114,24 +119,28 @@
         return await response.json();
       }
 
-      function render(result) {
-        results.innerHTML = '';
+      function addToConsole(expr, result) {
+        const entry = document.createElement('div');
+        entry.className = 'cc-dice-entry';
+        
+        entry.innerHTML = `
+          <div>> <span class="cc-dice-expression">${expr}</span></div>
+          <div>  Result: <span class="cc-dice-result">${result.total}</span></div>
+          <div class="cc-dice-details">  Rolls: [${result.values.join(', ')}] | Modifier: ${result.modifier > 0 ? '+' : ''}${result.modifier}</div>
+        `;
 
-        // card 1 — total result
-        const total = document.createElement('div');
-        total.className = 'cc-result-card';
-        total.textContent = 'Total: ' + result.total;
-        results.appendChild(total);
-
-        // card 2 — details
-        const detail = document.createElement('div');
-        detail.className = 'cc-result-card';
-        detail.innerHTML =
-          '<strong>Rolls:</strong> ' + result.values.join(', ') + '<br>' +
-          '<strong>Modifier:</strong> ' + result.modifier + '<br>' +
-          '<strong>Sum:</strong> ' + result.sum;
-        results.appendChild(detail);
+        console.appendChild(entry);
+        
+        // Auto-scroll to bottom
+        console.scrollTop = console.scrollHeight;
       }
+
+      // Allow Enter key to roll
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          button.click();
+        }
+      });
 
       button.addEventListener('click', async () => {
         const expr = input.value.trim();
@@ -143,11 +152,19 @@
         try {
           const result = await rollDice(expr);
 
-          render(result);
-          results.removeAttribute('hidden');
-          emptyState.style.display = 'none';
+          // Show console if first roll
+          if (console.hasAttribute('hidden')) {
+            console.removeAttribute('hidden');
+            emptyState.style.display = 'none';
+          }
+
+          addToConsole(expr, result);
 
           button.textContent = 'Roll Again';
+          
+          // Clear input for next roll
+          input.value = '';
+          input.focus();
         } catch (err) {
           console.error(err);
           button.textContent = 'Error – Try Again';

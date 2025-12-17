@@ -619,6 +619,7 @@ body::after {
 .cc-generator-actions {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 /* Minimal, on-brand button */
@@ -931,6 +932,68 @@ body::after {
 
 .cc-sheet-reroll {
   color: var(--accent); /* stroke uses currentColor */
+}
+
+.cc-dice-console {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  padding: 1.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.cc-dice-entry {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cc-dice-entry:last-child {
+  border-bottom: none;
+}
+
+.cc-dice-expression {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cc-dice-result {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.cc-dice-details {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.cc-input {
+  padding: 0.85rem 1.2rem;
+  border-radius: 0.7rem;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  min-width: 200px;
+}
+
+.cc-input:focus {
+  border-color: var(--accent);
+}
+
+.cc-input::placeholder {
+  color: var(--muted);
 }
 
 .cc-inline-input {
