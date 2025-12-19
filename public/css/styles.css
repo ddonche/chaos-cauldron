@@ -466,7 +466,6 @@ body::after {
 }
 
 /* AdSense placeholder */
-
 .cc-adsense {
   max-width: 1120px;
   margin: 0 auto 2.5rem;
@@ -474,22 +473,54 @@ body::after {
   position: relative;
   z-index: 5;
 }
-
 .cc-adsense-slot {
-  height: 5rem;
+  min-height: 5rem;
+  padding: 1.5rem;
   border-radius: 0.7rem;
   border: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.85);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  gap: 0.75rem;
 }
-
+.cc-adsense-slot h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+.cc-adsense-slot p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
 .cc-adsense-placeholder {
   color: var(--muted);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+}
+.cc-adsense-slot .cc-kofi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);  /* Changed from --primary */
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.cc-adsense-slot .cc-kofi-btn:hover {
+  background: #f97373;  /* Changed from --primary-hover, this is a lighter red */
+  transform: translateY(-2px);
+}
+.cc-adsense-slot .cc-kofi-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* Footer */
@@ -1041,3 +1072,4 @@ textarea.cc-inline-input {
   opacity: 0.3;
   cursor: not-allowed;
 }
+
